@@ -1,10 +1,15 @@
+"""
+all commands to dedicated files goes through this file of helper fnctions.
+for example, 
+"""
+
 from . import similarity_mat as sm
 
 
-def get_matrix(path=None, mat_type):
+def get_matrix(df_csv):
     if path:
-        print("don't give path yet")
+        print("don't give path yet ", path)
     else:
-        print("no paths. good")
-        sm.matrix("gaussian")
+        print("no paths. good ", path)
+        sm.matrix(df)
         

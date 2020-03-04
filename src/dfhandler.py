@@ -8,5 +8,9 @@ import pandas as pd
 class dframe_csv:
     def __init__(self, path, mat_type):
         self.df = pd.read_csv(path)
-        self.W = similarity_mat.matrix(mat_type)
 
+    def get_nrow(self):
+        self.nrow = self.df.shape[0]
+        
+    def get_ncol(self)
+        self.ncol = self.df.shape[1]

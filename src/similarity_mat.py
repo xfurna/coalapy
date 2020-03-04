@@ -1,4 +1,4 @@
-def matrix(mat_type):
+def matrix(df_csv):
     if mat_type == 'gaussian':
         Gaussian()
 

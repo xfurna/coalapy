@@ -1,14 +1,15 @@
 # import numpy as np
 # from scipy import linalg
-from .dfhandler import dframe_csv as df
+from .dfhandler import dframe_csv
 
-from . import helperFunc as hf
+from . import helperFunc
 
 
 
 class modality:
-    def __init__(self,path=None , mat_type=float):
-        self.W = hf.get_matrix(df(path, mat_type=mat_type))
+    def __init__(self, path=None , mat_type="gaussian"):
+        
+        self.W = helperFunc.get_matrix(dframe_csv(path, mat_type=mat_type))
     #     self.dim=len(W) - 1
     #     self.similarity=W
     #     # self.degree=D
