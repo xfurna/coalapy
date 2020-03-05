@@ -9,8 +9,8 @@
 # # df = src.dfhandler.dframe_csv(path, mat_type='gaussian')
 # df = src.modalities.modality( mat_type="gaussian")
 # print(df.W)\
-import src.modalities as modal
+import src.modalities as modality
 
 path = '/hdd/Ztudy/BTP/code/CoALa/toy.csv'
-x1= modal.modality(path, mat_type="gaussian")
-print(x1.W)
+x1= modality.modality(path, mat_type="gaussian")
+print(x1.degree, '\n', x1.W, '\n', x1.laplacian)

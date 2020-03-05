@@ -22,3 +22,15 @@ def Gaussian(df, ncol): #pandas data frame
         A[x]=np.exp(A[x])
     
     return A
+
+def get_degree(W):
+    D = np.zeros((len(W[0]), len(W[0])))
+    for x in range(0, len(D[0])):
+        D[x][x] = np.sum(W[x])
+    return D
+
+def get_laplacian(self):
+        D_sqrt = scipy.linalg.sqrtm(D)
+        D_nsqrt = scipy.linalg.inv(D_sqrt)
+        L = np.identity(mi.shape[1]-1, dtype=float) + D_nsqrt.dot(A).dot(D_nsqrt)
+        return L
