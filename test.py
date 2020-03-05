@@ -1,11 +1,16 @@
-"""modalities here"""
-import src
+# """modalities here"""
+# import src
 
-W=[[-1, 3, 5], [9, 4, 2], [6, 2, -6]]
+# W=[[-1, 3, 5], [9, 4, 2], [6, 2, -6]]
 
-# print (W)
-# m = modalities.modality(W)
-# path = None
-# df = src.dfhandler.dframe_csv(path, mat_type='gaussian')
-df = src.modalities.modality( mat_type="gaussian")
-print(df.W)
+# # print (W)
+# # m = modalities.modality(W)
+# # path = None
+# # df = src.dfhandler.dframe_csv(path, mat_type='gaussian')
+# df = src.modalities.modality( mat_type="gaussian")
+# print(df.W)\
+import src.modalities as modal
+
+path = '/hdd/Ztudy/BTP/code/CoALa/toy.csv'
+x1= modal.modality(path, mat_type="gaussian")
+print(x1.W)
