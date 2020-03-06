@@ -3,7 +3,7 @@ all commands to dedicated files goes through this file of helper fnctions.
 for example, 
 """
 
-from . import similarity_mat as sm
+from . import matrices as sm
 
 
 def get_similarity(df_csv): #dfraem_csv obj
@@ -29,3 +29,5 @@ def dist(i, j, df): #pandas df
     result_vector= result_vector * result_vector
     result = result_vector.sum()
     return result
+
+

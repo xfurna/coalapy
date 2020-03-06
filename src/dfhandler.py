@@ -2,7 +2,7 @@
 Reads the csv and returns dataframe/Similarity
 """
 
-from . import similarity_mat
+# from . import matrices 
 import pandas as pd
 
 class dframe_csv:
