@@ -1,4 +1,5 @@
 import numpy as np
+from scipy import linalg
 from . import helperFunc as hf
 
 def Gaussian(df, ncol): #pandas data frame
@@ -29,8 +30,8 @@ def get_degree(W):
         D[x][x] = np.sum(W[x])
     return D
 
-def get_laplacian(self):
-        D_sqrt = scipy.linalg.sqrtm(D)
-        D_nsqrt = scipy.linalg.inv(D_sqrt)
-        L = np.identity(mi.shape[1]-1, dtype=float) + D_nsqrt.dot(A).dot(D_nsqrt)
+def get_laplacian(W, D):
+        D_sqrt = linalg.sqrtm(D)
+        D_nsqrt = linalg.inv(D_sqrt)
+        L = np.identity(len(D[0]), dtype=float) + D_nsqrt.dot(W).dot(D_nsqrt)
         return L
