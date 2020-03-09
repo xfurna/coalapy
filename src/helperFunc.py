@@ -21,6 +21,8 @@ def matrix(df_csv = None, W = None, D = None, get = None): #df_csv is dfraem_csv
     elif W is not None:
         if get == "degree":
             return sm.get_degree(W)
+        elif get == "shifted_laplacian":
+            return sm.get_shifted_laplacian(W, D)
         elif get == "laplacian":
             return sm.get_laplacian(W, D)
 

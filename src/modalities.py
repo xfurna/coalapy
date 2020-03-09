@@ -10,9 +10,10 @@ class modality:
     def __init__(self, path=None , mat_type="gaussian"):
         self.W = helperFunc.get_similarity(dfhandler.dframe_csv(path, mat_type=mat_type))
         self.degree = helperFunc.matrix(W = self.W, get="degree")
-        self.laplacian = self.__get_laplacian()
+        self.laplacian = self.__get_laplacian(type = "shifted_laplacian")
 
-    def __get_laplacian(self): #private function
-        return helperFunc.matrix(W = self.W, D = self.degree, get="laplacian")
+    def __get_laplacian(self, type = "shifted_laplacian"): #private function
+        return helperFunc.matrix(W = self.W, D = self.degree, get="shifted_laplacian")
+        
 
  

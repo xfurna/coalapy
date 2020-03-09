@@ -30,8 +30,14 @@ def get_degree(W):
         D[x][x] = np.sum(W[x])
     return D
 
-def get_laplacian(W, D):
+def get_shifted_laplacian(W, D):
         D_sqrt = linalg.sqrtm(D)
         D_nsqrt = linalg.inv(D_sqrt)
         L = np.identity(len(D[0]), dtype=float) + D_nsqrt.dot(W).dot(D_nsqrt)
         return L
+
+def get_laplacian(W, D):
+    return (D - W)
+
+# def low_rank_approx(M):
+        
