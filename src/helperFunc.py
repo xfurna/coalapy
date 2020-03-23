@@ -25,11 +25,11 @@ def matrix(df_csv = None, W = None, D = None, get = None): #df_csv is dfraem_csv
             return sm.get_shifted_laplacian(W, D)
         elif get == "laplacian":
             return sm.get_laplacian(W, D)
+        # elif get == 'random_walk':
+            # return sm.get_RandomWalk(D, )
 
 def dist(i, j, df): #pandas df
     result_vector = df[list(df.columns)[i]] - df[list(df.columns)[j]]
     result_vector= result_vector * result_vector
     result = result_vector.sum()
     return result
-
-

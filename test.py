@@ -10,7 +10,9 @@
 # df = src.modalities.modality( mat_type="gaussian")
 # print(df.W)\
 import src.modalities as modality
+import numpy as np
 
-path = '/hdd/Ztudy/BTP/code/CoALa/toy.csv'
+path = '/hdd/Ztudy/BTP/code/mi.csv'
 x1= modality.modality(path, mat_type="gaussian")
-print(x1.degree, '\n', x1.W, '\n', x1.laplacian)
+# print(x1.degree, '\n', x1.W, '\n', x1.laplacian)
+# np.savetxt("yo.csv", x1.W, delimiter = ',')

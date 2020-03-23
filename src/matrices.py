@@ -39,5 +39,12 @@ def get_shifted_laplacian(W, D):
 def get_laplacian(W, D):
     return (D - W)
 
-# def low_rank_approx(M):
-        
+# def low_rank_approx(M, r): # r is the rank
+#     val, vect = linalg.eig(M)
+#     val = 
+
+
+# def get_RandomWalk(D, L):
+#     D_inv = linalg.inv(D)
+#     R = D_inv.dot(L)
+#     return R
