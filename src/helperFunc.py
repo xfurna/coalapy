@@ -8,7 +8,8 @@ from . import matrices as sm
 
 def get_similarity(df_csv): #dfraem_csv obj
     if df_csv.path:
-        print("don't give path yet ", df_csv.path)
+        print("recieved dframe_csv object with path-", df_csv.path)
+        print("calling matrix with df_csv args", df_csv.path)
         return matrix(df_csv = df_csv) #dframe_csv obj
     else:
         print("no paths. good ", df_csv.path)
