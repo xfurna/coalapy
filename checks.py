@@ -3,8 +3,11 @@ import sklearn.datasets as skl_data
 import matplotlib.pylab as plt 
 import numpy as np
 import pandas as pd
+import src
 
 
+
+src.tests.task()
 def junk(): #uncomment to plot the comaprision b/w k mean and spectral clustering
     # cluster with kmeans
     circles, circles_clusters = skl_data.make_circles(n_samples=400, noise=.01, random_state=0)
