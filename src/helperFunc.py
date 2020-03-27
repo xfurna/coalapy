@@ -4,7 +4,7 @@ for example,
 """
 
 from . import matrices as sm
-
+import numpy as np
 
 def get_similarity(df_csv): #dfraem_csv obj
     if df_csv.path:
@@ -36,3 +36,26 @@ def dist(i, j, df): #pandas df
     result_vector= result_vector * result_vector
     result = result_vector.sum()
     return result
+
+
+# wrapper function for dfhandler.data_generator()
+def wrapx(mat):
+    wrapx = [0]
+    wrapx[0] = [i for i in range(len(mat[0]))]
+    mat = np.vstack((wrapx, mat))
+    return mat
+
+def wrapy(mat):
+    mat = np.transpose(mat)
+    wrapy = [0]
+    wrapy[0] = [i for i in range(len(mat[0]))]
+    mat = np.vstack((wrapy, mat))
+    mat = np.transpose(mat)
+    return mat
+
+def wrap(mat):
+    mat = wrapy(mat)
+    wrap = [0]
+    wrap[0] = [i for i in range(len(mat[0]))]
+    mat = np.vstack((wrap, mat))
+    return mat

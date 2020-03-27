@@ -2,7 +2,7 @@
 Reads the csv and returns dataframe/Similarity
 """
 
-# from . import matrices 
+from . import helperFunc 
 import pandas as pd
 import sklearn.cluster as skl_cluster
 import sklearn.datasets as skl_data
@@ -18,18 +18,14 @@ class dframe_csv:
         self.ncol = self.df.shape[1]
     
 def data_generator():
-    circles, circles_clusters = skl_data.make_circles(n_samples=400, noise=.01, random_state=0)
-
-    wrapy = [0]
-    wrapy[0]=[i for i in range(len(circles[0]))]
-    circles = np.vstack((wrapy, circles))
-    circles = np.transpose(circles)
-
-    wrapx = []
-    wrapx=[i for i in range(len(circles[0]))]
-    circles = np.vstack((wrapx, circles))
+    oc, circles_clusters = skl_data.make_circles(n_samples=400, noise=.01, random_state=0)
+    circles = np.transpose(oc)
+    cirlces = helperFunc.wrapx(circles)
 
     np.savetxt("toy_data.csv", circles, delimiter = ',')
+    print("Saving toy data csv")
+    d = len(oc[0]) - len(circles[0])
+    return d
 
 # generate_data()
 
