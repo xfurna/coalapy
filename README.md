@@ -55,7 +55,8 @@ Where D  is degree matrix and W is similarity matrix
 * Perform clustering on the rows of Vk using k-means algorithm.
 * Return clusters A1, . . . ,Ak from k-means clustering.
 
-.
+---
 
+## Contribution
 
-
+Not accepting.

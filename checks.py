@@ -1,3 +1,6 @@
+"""
+For testing, imposrt tests module and experiment with the modules here
+"""
 import sklearn.cluster as skl_cluster
 import sklearn.datasets as skl_data
 import matplotlib.pylab as plt 
@@ -5,9 +8,6 @@ import numpy as np
 import pandas as pd
 import src
 
-
-
-src.tests.task()
 def junk(): #uncomment to plot the comaprision b/w k mean and spectral clustering
     # cluster with kmeans
     circles, circles_clusters = skl_data.make_circles(n_samples=400, noise=.01, random_state=0)
@@ -25,3 +25,10 @@ def junk(): #uncomment to plot the comaprision b/w k mean and spectral clusterin
     labels = model.fit_predict(circles)
     plt.scatter(circles[:, 0], circles[:, 1], s=15, linewidth=0, c=labels, cmap='flag')
     plt.show()
+
+def tt():
+    a=[0,2]
+    b=[9,8]
+    return a, b
+
+print(*tt)
