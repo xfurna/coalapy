@@ -1,14 +1,16 @@
 """
-For testing, imposrt tests module and experiment with the modules here
+For testing, import tests module and experiment with the modules here
 """
-import sklearn.cluster as skl_cluster
-import sklearn.datasets as skl_data
-import matplotlib.pylab as plt 
+
 import numpy as np
 import pandas as pd
 import src
 
+
 def junk(): #uncomment to plot the comaprision b/w k mean and spectral clustering
+    import sklearn.cluster as skl_cluster
+    import sklearn.datasets as skl_data
+    import matplotlib.pylab as plt 
     # cluster with kmeans
     circles, circles_clusters = skl_data.make_circles(n_samples=400, noise=.01, random_state=0)
 
@@ -26,9 +28,20 @@ def junk(): #uncomment to plot the comaprision b/w k mean and spectral clusterin
     plt.scatter(circles[:, 0], circles[:, 1], s=15, linewidth=0, c=labels, cmap='flag')
     plt.show()
 
-def tt():
-    a=[0,2]
-    b=[9,8]
-    return a, b
+def make_laplacian():
+    path_lap = 'mi_lap.csv'
 
-print(*tt)
+    try:
+        x1= src.modalities.modality(path, mat_type="gaussian")
+        print("made x1")
+        np.savetxt("mi_lap.csv", x1.laplacian, delimiter = ',')
+
+    except: 
+        print("NO PATH PROVIDED. wrapping laplacian")
+        mi_lap = pd.read_csv(path_lap)
+        lap = mi_lap.to_numpy()
+        lap = src.tests.wrapx_test(lap, arg = "columns")
+    return lap
+
+
+# EIGEN DECOMPOSITION
