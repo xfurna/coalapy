@@ -11,7 +11,7 @@ def get_similarity(df_csv): #dfraem_csv obj
         print("recieved dframe_csv object with path-", df_csv.path)
         print("calling matrix with df_csv args", df_csv.path)
         mat = matrix(df_csv = df_csv) #dframe_csv obj
-        print("matrix: ", df_csv.ncol, "x", df_csv.ncol)
+        print("similarity matrix: ", df_csv.ncol, "x", df_csv.ncol)
         return mat
     else:
         print("no paths. good ", df_csv.path)
