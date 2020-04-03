@@ -44,4 +44,7 @@ def make_laplacian():
     return lap
 
 
-# EIGEN DECOMPOSITION
+# data generation
+def generate_data(multiplier, filename):
+    src.tests.data_gen_test(multiplier, filename)
+generate_data(multiplier=1, filename="toy.csv")
