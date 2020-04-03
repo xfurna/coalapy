@@ -17,14 +17,16 @@ class dframe_csv:
         self.nrow = self.df.shape[0]
         self.ncol = self.df.shape[1]
     
-def data_generator():
-    oc, circles_clusters = skl_data.make_circles(n_samples=400, noise=.01, random_state=0)
-    circles = np.transpose(oc)
-    cirlces = helperFunc.wrapx(circles)
+def data_generator(multiplier = 1, filename = "toy.csv"):
+    oc, circles_clusters = skl_data.make_circles(n_samples=400, noise=.01, random_state=0, factor = 0.5)
+    oc = multiplier * oc
+    # circles = np.transpose(oc)
+    circles = helperFunc.wrapx(oc)
 
-    np.savetxt("toy_data.csv", circles, delimiter = ',')
-    print("Saving toy data csv")
+    np.savetxt(filename, circles, delimiter = ',')
+    print("Saving toy data csv", oc[0,:10])
     d = len(oc[0]) - len(circles[0])
+    print(d)
     return d
 
 # generate_data()

@@ -1,9 +1,11 @@
 from . import dfhandler
 from . import helperFunc
 
-def data_gen_test():
+def data_gen_test(multiplier, filename):
+    # mat = dfhandler.data_generator(multiplier = multiplier, filename = filename)
+
     try:
-        mat = dfhandler.data_generator()
+        mat = dfhandler.data_generator(multiplier = multiplier, filename = filename)
         if mat == 0:
             print("PASS")
     except:
