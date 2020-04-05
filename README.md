@@ -60,3 +60,6 @@ Where D  is degree matrix and W is similarity matrix
 ## Contribution
 
 Not accepting.
+
+## Notes
+- Code has been written considering that the raw modality table has nodes in columns and features in rows.
