@@ -66,6 +66,5 @@ def RawToLap(): #function generates and saves two modalities followed by their l
     np.savetxt("L1.csv", l1, delimiter = ',')
     np.savetxt("L2.csv", l2, delimiter = ',')
 
-RawToLap()
-# generate_data(multiplier=1, filename="X1.csv")
+
 
