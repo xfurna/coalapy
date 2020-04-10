@@ -9,15 +9,15 @@ def Gaussian(df, ncol): #pandas data frame
 
     for x in range(0, ncol):
         for y in range(x, ncol):
-            A[x][y]=hf.dist(x,y, df)
+            A[x][y]=hf.dist_sq(x,y, df)
             A[y][x]=A[x][y]
             if sigma_sq < A[x][y]:
                 sigma_sq = A[x][y]
     
     for x in range(0, ncol):
         for y in range(x, ncol):
-            A[y][x]=A[y][x]/((-0.5)*sigma_sq)
-            A[x][y]=A[x][y]/((-0.5)*sigma_sq)
+            A[y][x]=A[y][x]/((-2)*sigma_sq)
+            A[x][y]=A[x][y]/((-2)*sigma_sq)
 
     for x in range(0, ncol):
         A[x]=np.exp(A[x])
@@ -31,10 +31,13 @@ def get_degree(W):
     return D
 
 def get_shifted_laplacian(W, D):
-        D_sqrt = linalg.sqrtm(D)
-        D_nsqrt = linalg.inv(D_sqrt)
-        L = np.identity(len(D[0]), dtype=float) + D_nsqrt.dot(W).dot(D_nsqrt)
-        return L
+    D_diag = D.diagonal()
+    D_diag = 1/D_diag**1/2
+    Dd = np.zeros((len(D),len(D)))
+    np.fill_diagonal(Dd, D_diag)
+    prod = Dd.dot(W)
+    L = np.identity(len(D[0]), dtype=float) + prod.dot(Dd)        
+    return L
 
 def get_laplacian(W, D):
     return (D - W)
