@@ -49,22 +49,21 @@ def generate_data(multiplier, filename):
     src.tests.data_gen_test(multiplier, filename)
 
 
-def RawToLap(): #function generates and saves two modalities followed by their laplacians 
-    generate_data(multiplier=1, filename="X1.csv")
-    generate_data(multiplier=1.6, filename="X2.csv")
-    path_x1 = "/hdd/Ztudy/BTP/code/CoALa/algo/X1.csv"
-    path_x2 = "/hdd/Ztudy/BTP/code/CoALa/algo/X2.csv"
+def RawToLap(): #function generates(optional) and saves two modalities followed by their laplacians 
+    # generate_data(multiplier=1, filename="X1.csv")
+    # generate_data(multiplier=1.6, filename="X2.csv")
+    path_x1 = "/hdd/Ztudy/BTP/code/CoALa/algo/.data/X1.csv"
+    path_x2 = "/hdd/Ztudy/BTP/code/CoALa/algo/.data/X2.csv"
+
+    print("Read X1 X2. Making laplacian")
 
     x1 = src.modalities.modality(path_x1, mat_type="gaussian")
     x2 = src.modalities.modality(path_x2, mat_type="gaussian")
 
-    print("made x1 and x2. onto wrapping laplacian")
 
     l1 = src.tests.wrap_test(x1.laplacian, "columns")
     l2 = src.tests.wrap_test(x2.laplacian, "columns")
 
-    np.savetxt("L1.csv", l1, delimiter = ',')
-    np.savetxt("L2.csv", l2, delimiter = ',')
-
-
-
+    np.savetxt(".data/L1.csv", l1, delimiter = ',')
+    np.savetxt(".data/L2.csv", l2, delimiter = ',')
+RawToLap()
