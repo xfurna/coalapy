@@ -5,6 +5,7 @@ for example,
 
 from . import matrices as sm
 import numpy as np
+import cmath
 
 def get_similarity(df_csv): #dfraem_csv obj
     if df_csv.path:
@@ -31,12 +32,17 @@ def matrix(df_csv = None, W = None, D = None, get = None): #df_csv is dfraem_csv
         # elif get == 'random_walk':
             # return sm.get_RandomWalk(D, )
 
-def dist(i, j, df): #pandas df
+def dist_sq(i, j, df): #pandas df
     result_vector = df[list(df.columns)[i]] - df[list(df.columns)[j]]
     result_vector= result_vector * result_vector
     result = result_vector.sum()
     return result
 
+
+
+# Cleans the matrix by removing imaginary part from each element
+def clean(mat):
+    return mat.real
 
 # wrapper function for dfhandler.data_generator()
 def wrapx(mat):
