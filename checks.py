@@ -2,8 +2,6 @@
 For testing, import tests module and experiment with the modules here
 """
 
-import numpy as np
-import pandas as pd
 import src
 
 
@@ -29,6 +27,8 @@ def junk(): #uncomment to plot the comaprision b/w k mean and spectral clusterin
     plt.show()
 
 def make_laplacian():
+    import numpy as np
+    import pandas as pd
     path_lap = 'mi_lap.csv'
 
     try:
@@ -46,12 +46,16 @@ def make_laplacian():
 
 # data generation
 def generate_data(multiplier, filename):
+    import numpy as np
+    import pandas as pd
     src.tests.data_gen_test(multiplier, filename)
 
 
 def RawToLap(): #function generates(optional) and saves two modalities followed by their laplacians 
     # generate_data(multiplier=1, filename="X1.csv")
     # generate_data(multiplier=1.6, filename="X2.csv")
+    import numpy as np
+    import pandas as pd
     path_x1 = "/hdd/Ztudy/BTP/code/CoALa/algo/.data/X1.csv"
     path_x2 = "/hdd/Ztudy/BTP/code/CoALa/algo/.data/X2.csv"
 
@@ -66,4 +70,25 @@ def RawToLap(): #function generates(optional) and saves two modalities followed 
 
     np.savetxt(".data/L1.csv", l1, delimiter = ',')
     np.savetxt(".data/L2.csv", l2, delimiter = ',')
-RawToLap()
+
+
+def climax_tests():
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from scipy import linalg
+    from sklearn.cluster import KMeans
+
+
+    L1 = pd.read_csv("/hdd/Ztudy/BTP/code/CoALa/algo/.data/L1.csv")
+    L2 = pd.read_csv("/hdd/Ztudy/BTP/code/CoALa/algo/.data/L2.csv")
+
+    l1=L1.to_numpy()
+    l2=L2.to_numpy()
+
+    s1,u1=linalg.eig(l1)
+    s2,u2=linalg.eig(l2)
+    s1=s1.real
+    s2=s2.real
+    u1=u1.real
+    u2=u2.real
