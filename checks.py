@@ -72,7 +72,7 @@ def RawToLap(): #function generates(optional) and saves two modalities followed 
     np.savetxt(".data/L2.csv", l2, delimiter = ',')
 
 
-def climax_tests():
+def end_game():
     import pandas as pd
     import matplotlib.pyplot as plt
     import numpy as np
