@@ -51,3 +51,34 @@ def get_laplacian(W, D):
 #     D_inv = linalg.inv(D)
 #     R = D_inv.dot(L)
 #     return R
+
+def make_orthonorm_basis(lr_list, r):
+    n = len(lr_list[0]) 
+    Ur0 = hf.sorted_u(lr_list[0])
+    U = np.zeros((n, r))
+    U = Ur0[:,:r].copy()
+
+    for i in lr_list[1:]:
+        Ui = hf.sorted_u(i)
+        Uri = Ui[:,:r].copy()
+       
+        Ut=U.transpose()
+
+        S = Ut.dot(Uri)
+        P = U.dot(S)
+        Q = Uri - P
+        G = hf.orthogonalize(Q)
+    
+        U = np.append(U, G, axis=1)
+    return U
+
+
+def make_H(orthonorm_basis, lr_list, r):
+    M = len(lr_list)
+    H = np.zeros((M*r, M*r))
+    for i in range(M):
+        Lr=lr_list[i]
+        Ut = np.transpose(orthonorm_basis)
+        prod = Ut.dot(Lr).dot(orthonorm_basis)
+        H = H + Ut.dot(Lr).dot(orthonorm_basis)
+    return H
