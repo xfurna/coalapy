@@ -22,3 +22,14 @@ def wrap_test(mat, arg = None):
     except:
         print("NO arg PROVIDED!\nReturning a wrap around...")
         return helperFunc.wrap(mat)
+
+
+# following function is taken from main.py just in case in future it is considered
+def na():
+    try:
+        x1= src.modalities.modality(path, mat_type="gaussian")
+        print("made x1. onto wrapping laplacian")
+        lap = src.tests.wrap_test(x1.laplacian, "columns")
+        np.savetxt("mi_lap.csv", lap, delimiter = ',')
+    except: 
+        print("NO PATH PROVIDED")
