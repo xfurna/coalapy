@@ -76,9 +76,12 @@ def make_orthonorm_basis(lr_list, r):
 def make_H(orthonorm_basis, lr_list, r):
     M = len(lr_list)
     H = np.zeros((M*r, M*r))
+    alpha = hf.get_weights(lr_list)
     for i in range(M):
         Lr=lr_list[i]
-        Ut = np.transpose(orthonorm_basis)
-        prod = Ut.dot(Lr).dot(orthonorm_basis)
-        H = H + Ut.dot(Lr).dot(orthonorm_basis)
+        gamma = orthonorm_basis[:,:].copy()
+        gamma[:,i+1:] = 0
+        gamma_T = np.transpose(gamma)
+        P = gamma_T.dot(Lr)
+        H = H + alpha[0][i]*P.dot(gamma)
     return H
