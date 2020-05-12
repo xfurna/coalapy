@@ -62,4 +62,13 @@ Where D  is degree matrix and W is similarity matrix
 Not accepting.
 
 ## Notes
+
 - Code has been written considering that the raw modality table has nodes in columns and features in rows.
+- At the moment, all modalities are assigned equal weightage regardless of their varied relevance.
+- You don't need to touch anything except `main.py` (unless you're researching or eager to contribute). 
+- For getting results, just enlist the absolute paths of each modality in `path_list` list in `main.py`
+- You may also like to edit the values of variables- `k` (expected number of clusters) and `rank` (the rank of the laplacian) which have been given default values of 2 and 4 respectively.
+- The results will get stored in `.data` directory as `CoALa.csv`.
+- In that file, first row is the index of each data-point and each column of second row is assigned a number on the basis of their belonging to the clusters
+- If your data files are doubly featured (as in- two dimensional), then you can uncomment the code snippet written at the bottom in `main.py` allowing it to pop up an illustration indicating all the clusters.
+  
