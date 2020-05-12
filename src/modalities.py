@@ -22,7 +22,7 @@ class lap_list:
         self.orthonorm_basis = helperFunc.get_orthonorm_basis(lr_list = self.lra, rank = rank) # define make_orthonorm_basis() within this class
         self.H = helperFunc.get_H_matrix(orthonorm_basis = self.orthonorm_basis , lr_list = self.lra, rank = rank)  # define make_H() within the calss
         self.rotation = self.__compute_rotation_matrix()  #define get_rotation()
-        # delf.eig_vectors = 1# multiply U and R
+        self.joint_eig_vectors = self.__compute_eig_vectors() # multiply U and R
     
     def __compute_lra(self):
         lap_r = []
@@ -31,4 +31,11 @@ class lap_list:
         return lap_r
     
     def __compute_rotation_matrix(self):
-        return 0
+        R = helperFunc.sorted_u(self.H)
+        return R
+
+    def __compute_eig_vectors(self):
+        U = self.orthonorm_basis
+        R = self.rotation
+        V = U.dot(R)
+        return V
