@@ -46,16 +46,19 @@ def clean(mat):
     return mat.real
 
 # wrapper function for dfhandler.data_generator()
+# It is assumed that mat is asquare matrix
 def wrapx(mat):
     wrapx = [0]
-    wrapx[0] = [i for i in range(len(mat[0]))]
+    n = len(mat)
+    wrapx[0] = np.arange(0, n, 1)
     mat = np.vstack((wrapx, mat))
     return mat
 
 def wrapy(mat):
     mat = np.transpose(mat)
     wrapy = [0]
-    wrapy[0] = [i for i in range(len(mat[0]))]
+    n = len(mat)
+    wrapy[0] = np.arange(0, n, 1)
     mat = np.vstack((wrapy, mat))
     mat = np.transpose(mat)
     return mat
