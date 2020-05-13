@@ -5,7 +5,8 @@ from sklearn.cluster import KMeans
 import pandas as pd
 
 # READ MODALITIES
-path_list = ["/hdd/Ztudy/BTP/code/CoALa/algo/.data/X1.csv","/hdd/Ztudy/BTP/code/CoALa/algo/.data/X2.csv"]
+path_list = ["",""] # add absolute path to data files here
+
 lap= []
 
 try:
@@ -20,6 +21,7 @@ except:
 # expected number of clusters 
 k = 2
 rank = 4
+
 Ls = src.modalities.lap_list(lap = lap, rank = rank)
 
 V = Ls.joint_eig_vectors
