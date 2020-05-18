@@ -6,6 +6,11 @@ for example,
 from . import matrices as sm
 import numpy as np
 import cmath
+from sklearn.metrics import silhouette_score 
+from sklearn.cluster import KMeans 
+import pandas as pd
+import matplotlib.pyplot as plt
+from array import array
 
 def get_similarity(df_csv): #dfraem_csv obj
     if df_csv.path:
@@ -123,3 +128,25 @@ def get_H_matrix(orthonorm_basis = None , lr_list = None , rank = 3):
         return sm.make_H(orthonorm_basis , lr_list, rank)
     else:
         print("provide list of lra laplacian matrices and orthonormal basis matrix")
+
+def alpha(lap):
+        alp=[]
+        xx=[]
+        for i in range(len(lap)):
+            eigenvalues,eigenvectors=LA.eig(lap[i])
+            idx = np.argsort(eigenvalues)
+            eigenvalues = eigenvalues[idx]
+            eigenvectors = eigenvectors[ : ,idx]
+            u2=eigenvectors[:,:1]
+            lambda2 = eigenvalues[1]  
+            u2=u2.real
+            
+            kmeans = KMeans(n_clusters = 2,random_state=None).fit(u2[:,:])
+            k_mean_affinity = kmeans.predict(u2[:,:])
+        
+            s_score = silhouette_score(u2, k_mean_affinity)
+            xx .append(.25*(s_score*lambda2+1)*lambda2)
+        xx.sort()
+        for i in range (len(xx)):
+            alp.append(xx[i]/pow(1,i))
+        return alp
