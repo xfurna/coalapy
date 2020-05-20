@@ -1,14 +1,18 @@
 """
 matrices.similarity_mat: conatines methods to make different types of similarity matrices
 
-matrices.similarity_mat.Gaussian:
+
+matrices.similarity_mat.Gaussian: computes Guassian similarity matrix
     params:
         df: pandas dataframe object
         ncol: number of columns in the dataframe
     return: 
 """
+
+
 import numpy as np
 from .. import helpers as hf
+
 
 def Gaussian(df, ncol): #pandas data frame
     A = np.zeros((ncol,ncol))

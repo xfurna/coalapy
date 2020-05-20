@@ -1,5 +1,26 @@
+"""
+Module curating methods that makes matrices as directed in the algorithm
+
+
+matrices.make_mat.make_orthonorm_basis(lr_list, r): computes orthonormal basis as guided in the CoALa algorithm
+    params: 
+        lr_list: List of low rank approximated laplacian matrices of each modality
+        r: the low rank of the laplacian matrices
+    return: orthonormal basis U
+
+
+matrices.make_mat.make_H(rthonorm_basis, lr_list, r)): computes H matrix from the algorithm
+    params:
+        orthonorm_basis: an orthonormal matrix (just as returned by helpers.utils.get_orthonorm_basis)
+        lr_list: List of low rank approximated laplacian matrices of each modality
+        r: the low rank of the laplacian matrices
+    return: a matrix H of dim(M*rank x M*rank)
+"""
+
+
 import numpy as np
 from .. import helpers as hf
+
 
 def make_orthonorm_basis(lr_list, r):
     n = len(lr_list[0]) 
