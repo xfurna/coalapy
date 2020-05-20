@@ -1,0 +1,2 @@
+1. [Clustering Algorithms](https://drive.google.com/open?id=1WKAgHzm0inbk9yIyoKMP_4NwzSgkJPVp), *by Akash Garg*
+2. [CoALa Algorithm](https://drive.google.com/open?id=1bcBrzatHrg-8nl7i-Q65LY1n2NOlNtCz), *by Archit Dwivedi (evi1haxor)* 
