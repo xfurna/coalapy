@@ -1,7 +1,8 @@
 """
 helpers.utils: module that contains methods that are used here and there as an utility.
 
-helpers.utils.low_rank_mat:
+
+helpers.utils.low_rank_mat(SVD=None, A=None, r=1): computes low rank approximation by SVD method
     params: 
         SVD: the single value decomposition of the matrix
         A: the matrix itsef
@@ -9,36 +10,43 @@ helpers.utils.low_rank_mat:
     return: 
         Ar: a matrix
 
-helpers.utils.get_weights:
+
+helpers.utils.get_weights(lap): a simple assignment of equal weights to the modalities toill alpha thing is ready
     params: 
         lap: a square symmetric matrix
     returns: a numoy array with all values 1/(number of rows in lap)
 
-helpers.utils.sorted_u:
+
+helpers.utils.sorted_u(M): computes and returns eigenvectors sorted according to the order of their corresponding eigenvalues 
     params: 
         M: a square matrix
     return: 
         u: a matrix with columns being the eigenvectors of M sorted on the basis of their corresponding eigenvalues 
 
-helpers.utils.orthogonalize:
+
+helpers.utils.orthogonalize(U, eps=1e-15): performs Gram-Schmidt orthogonalisation on U
     params:
         U: the matrix to be orthogonalized
         eps: threshold to set extremely small values to 0
     return: a matrix
 
-helpers.utils.get_orthonorm_basis:
+
+helpers.utils.get_orthonorm_basis(lr_list = None , rank = 3): computes orthonormal basis as guided in the CoALa algorithm
     params: 
         lr_list: List of low rank approximated laplacian matrices of each modality
         rank: the low rank of the laplacian matrices
-    return: orthonormal basis of U
+    return: orthonormal basis U
 
-helpers.utils.get_H_matrix:
+
+helpers.utils.get_H_matrix(orthonorm_basis = None , lr_list = None , rank = 3): computes H matrix from the algorithm
     params:
         orthonorm_basis: an orthonormal matrix (just as returned by helpers.utils.get_orthonorm_basis)
         lr_list: List of low rank approximated laplacian matrices of each modality
         rank: the low rank of the laplacian matrices
-    return: a matrix (M*rank x Mrank)
+    return: a matrix (M*rank x M*rank)
 """
+
+
 from .. import matrices as Matrix
 import numpy as np
 
