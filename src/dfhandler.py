@@ -2,11 +2,13 @@
 Module to handle all dataframe related affairs. 
 """
 
+
 from . import helpers
 import pandas as pd
 import sklearn.cluster as skl_cluster
 import sklearn.datasets as skl_data
 import numpy as np
+
 
 """
 dfhandler.dframe_csv.__init__:
@@ -14,6 +16,8 @@ dfhandler.dframe_csv.__init__:
         path: absolute path to the datafile to be read (modality)
         mat_type: type of similarity matrix you want for the the modality
 """
+
+
 class dframe_csv:
     def __init__(self, path, mat_type):
         self.df = pd.read_csv(path)
@@ -22,6 +26,7 @@ class dframe_csv:
         self.nrow = self.df.shape[0]
         self.ncol = self.df.shape[1]
     
+
 """
 dfhandler.data_generator: generates data which when plotted depicts two circular clusters 
     params: 
@@ -29,6 +34,8 @@ dfhandler.data_generator: generates data which when plotted depicts two circular
         filename: file name of the generated datafile
     return: a csv file gets stored
 """
+
+
 def data_generator(multiplier = 1, filename = "toy.csv"):
     oc, circles_clusters = skl_data.make_circles(n_samples=400, noise=.01, random_state=0, factor = 0.5)
     oc = multiplier * oc
@@ -36,7 +43,7 @@ def data_generator(multiplier = 1, filename = "toy.csv"):
     circles = helpers.house_keeper.wrapx(circles)
 
     np.savetxt(filename, circles, delimiter = ',')
-    print("Saving toy data csv w/d", len(circles[:,0]))#, oc[0,:10])
+    print("Saving toy data csv w/d", len(circles[:,0]))
     d = len(oc[0]) - len(circles[0])
 
     # return d
