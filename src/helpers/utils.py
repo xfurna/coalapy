@@ -110,21 +110,18 @@ def compute_alpha(lap_list):
     import cmath
     from sklearn.metrics import silhouette_score 
     from sklearn.cluster import KMeans 
-    numpy import linalg as LA
     alpha_coala = []
     relevance = []
     for i in range(len(lap_list)):
-        eigenvalues , eigenvectors = LA.eig(lap[i])
+        eigenvalues , eigenvectors = np.LA.eig(lap[i])
         idx = np.argsort(eigenvalues)
         eigenvalues = eigenvalues[idx]
         eigenvectors = eigenvectors[ : ,idx]
         fiedler = eigenvectors[: , :1]
         lambda2 = eigenvalues[1]  
         fiedler = fiedler.real
-            
         kmeans = KMeans(n_clusters = 2,random_state = None).fit(fiedler[ : , : ])
         k_mean_affinity = kmeans.predict(fiedler[:,:])
-        
         s_score = silhouette_score(fiedler, k_mean_affinity)
         relevance .append(.25 * (s_score * lambda2 + 1) * lambda2)
         relevance.sort()
