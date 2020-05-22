@@ -109,7 +109,8 @@ def get_H_matrix(orthonorm_basis = None , lr_list = None , rank = 3):
 def compute_alpha(lap_list):
     import cmath
     from sklearn.metrics import silhouette_score 
-    from sklearn.cluster import KMeans 
+    from sklearn.cluster import KMeans
+    from numpy import linalg as LA
     alpha_coala = []
     relevance = []
     for i in range(len(lap_list)):
