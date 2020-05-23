@@ -40,18 +40,19 @@ def make_orthonorm_basis(lr_list, r):
         G = hf.utils.orthogonalize(Q)
     
         U = np.append(U, G, axis=1)
+        print("Made Orthonormal basis successfully...")
     return U
 
 
-def make_H(orthonorm_basis, lr_list, r):
+def make_H(orthonorm_basis, lr_list, alpha , r):
     M = len(lr_list)
     H = np.zeros((M*r, M*r))
-    alpha = hf.utils.get_weights(lr_list)
     for i in range(M):
         Lr=lr_list[i]
         gamma = orthonorm_basis[:,:].copy()
         gamma[:,i+1:] = 0
         gamma_T = np.transpose(gamma)
         P = gamma_T.dot(Lr)
-        H = H + alpha[0][i]*P.dot(gamma)
+        H = H + alpha[i]*P.dot(gamma)
+    print("Made H matrix successfully...")
     return H
