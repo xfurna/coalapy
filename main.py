@@ -7,7 +7,7 @@ import pandas as pd
 # READ MODALITIES
 # add absolute path to data files here
 
-path_list = ["/hdd/Ztudy/BTP/code/CoALa/algo/.data/cleaned_mi.csv", "/hdd/Ztudy/BTP/code/CoALa/algo/.data/cleaned_mr.csv"] 
+path_list = ["", ""] 
 
 lap= []
 
