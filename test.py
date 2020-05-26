@@ -5,21 +5,23 @@ from sklearn.cluster import KMeans
 import pandas as pd
 
 def CoALa():
+    from sklearn.metrics import silhouette_score 
     # READ MODALITIES
     # add absolute path to data files here
 
-    path_list = ["/hdd/Ztudy/BTP/code/CoALa/CoALa/.data/cleaned_mi.csv"] 
 
-    lap= []
+    lap_mi = pd.read_csv("/hdd/Ztudy/BTP/code/CoALa/.data/cancer/laplacian/lap_mi.csv")
+    lap_mr = pd.read_csv("/hdd/Ztudy/BTP/code/CoALa/.data/cancer/laplacian/lap_mr.csv")
 
-    try:
-        for path in path_list:
-            X= src.modalities.modality(path, mat_type="gaussian")
-            print("Made a modality.")
-            lap.append(X.laplacian)
-            print("Laplacian appended successfully!")
-    except: 
-        print("NO PATH PROVIDED")
+    lap = [lap_mi.to_numpy(), lap_mr.to_numpy()]
+    # try:
+    #     for path in path_list:
+    #         X= src.modalities.modality(path, mat_type="gaussian")
+    #         print("Made a modality.")
+    #         lap.append(X.laplacian)
+    #         print("Laplacian appended successfully!")
+    # except: 
+    #     print("NO PATH PROVIDED")
 
     # expected number of clusters 
     k = 2
@@ -42,38 +44,49 @@ def CoALa():
 
 
     k_mean_affinity = np.array(k_mean_affinity) 
+
+    s_score = silhouette_score(V[:,:1], k_mean_affinity)
+
     k_mean_affinity = k_mean_affinity + 1
 
     # CoALa = src.helpers.helper.csv_wrapper(mat = k_mean_affinity, arg = "columns")
-    # np.savetxt(".data/mi_mr_CoALa.csv" , CoALa , delimiter = ',')
+    # np.savetxt("/hdd/Ztudy/BTP/code/CoALa/.data/cancer/v_mi_mr.csv" , V , delimiter = ',')
 
     truth = pd.read_csv("/hdd/Ztudy/BTP/code/CoALa/.data/cancer/laplacian/origal_classinformation.csv")
     truth = truth.to_numpy()
     tr = truth[:,1]
     diff = tr - k_mean_affinity
-
-    print("0: ", len(np.where(diff==0)[0]))
-    print("1: ", len(np.where(diff==1)[0]))
-    print("-1: ", len(np.where(diff==-1)[0]))
+    print("label diff 0: ", len(np.where(diff==0)[0]))
+    print("label diff 1: ", len(np.where(diff==1)[0]))
+    print("label diff -1: ", len(np.where(diff==-1)[0]))
+    print("\nAccuracy on comparision with ground truth: ", max(100*len(np.where(diff==0)[0])/304, 100*len(np.where(diff==1)[0])/304, 100*len(np.where(diff==-1)[0])/304))
+    print("Silhoutte score for [miRNA, mrRNA]: ", s_score)
 
 def spectral():
+    from sklearn.metrics import silhouette_score 
     from sklearn.cluster import SpectralClustering 
-    x = pd.read_csv("/hdd/Ztudy/BTP/code/CoALa/CoALa/.data/cleaned_mr.csv")
+    x = pd.read_csv("/hdd/Ztudy/BTP/code/CoALa/CoALa/.data/cleaned_mi.csv")
+    x = x.to_numpy().transpose()
     # Building the clustering model 
     spectral_model_nn = SpectralClustering(n_clusters = 2, affinity ='nearest_neighbors') 
     
     # Training the model and Storing the predicted cluster labels 
-    labels_nn = spectral_model_nn.fit_predict(x.T) 
+    labels_nn = spectral_model_nn.fit_predict(x) 
     
     truth = pd.read_csv("/hdd/Ztudy/BTP/code/CoALa/.data/cancer/laplacian/origal_classinformation.csv")
     truth = truth.to_numpy()
     tr = truth[:,1]
+
+    s_score = silhouette_score(x, labels_nn)
 #     print(len(labels_nn), len(tr))
     diff = tr-labels_nn
+    print("label diff 0: ", len(np.where(diff==0)[0]))
+    print("label diff 1: ", len(np.where(diff==1)[0]))
+    print("label diff -1: ", len(np.where(diff==-1)[0]))
+    print("\nAccuracy on comparision with ground truth: ", max(100*len(np.where(diff==0)[0])/304, 100*len(np.where(diff==1)[0])/304, 100*len(np.where(diff==-1)[0])/304))
+    print("Silhoutte when sklearn.cluster.SpectralClustering on miRNA data : ", s_score)
 
-    print("0: ", len(np.where(diff==0)[0]))
-    print("1: ", len(np.where(diff==1)[0]))
-    print("-1: ", len(np.where(diff==-1)[0]))
-spectral()
+
+CoALa()
 
 
