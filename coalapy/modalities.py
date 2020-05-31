@@ -50,3 +50,4 @@ class lap_list:
         V = U.dot(R)
         print("computed joint-eigenvector-matrix")
         return V
+        
