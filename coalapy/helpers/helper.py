@@ -23,7 +23,7 @@ return:
     wrapped matrix
 """
 
-from src import matrices as Matrix
+from coalapy import matrices as Matrix
 from . import house_keeper
 
 
