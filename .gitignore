@@ -15,7 +15,8 @@
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
-*/__pycache__/
+coalapy/__pycache__/
+coalapy/helpers/__pycache__/
 *.py[cod]
 *$py.class
 
