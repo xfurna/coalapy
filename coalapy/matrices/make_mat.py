@@ -23,36 +23,36 @@ from .. import helpers as hf
 
 
 def make_orthonorm_basis(lr_list, r):
-    n = len(lr_list[0]) 
+    n = len(lr_list[0])
     Ur0 = hf.utils.sorted_u(lr_list[0])
     U = np.zeros((n, r))
-    U = Ur0[:,:r].copy()
+    U = Ur0[:, :r].copy()
 
     for i in lr_list[1:]:
         Ui = hf.utils.sorted_u(i)
-        Uri = Ui[:,:r].copy()
-    
-        Ut=U.transpose()
+        Uri = Ui[:, :r].copy()
+
+        Ut = U.transpose()
 
         S = Ut.dot(Uri)
         P = U.dot(S)
         Q = Uri - P
         G = hf.utils.orthogonalize(Q)
-    
+
         U = np.append(U, G, axis=1)
         print("Made Orthonormal basis successfully...")
     return U
 
 
-def make_H(orthonorm_basis, lr_list, alpha , r):
+def make_H(orthonorm_basis, lr_list, alpha, r):
     M = len(lr_list)
-    H = np.zeros((M*r, M*r))
+    H = np.zeros((M * r, M * r))
     for i in range(M):
-        Lr=lr_list[i]
-        gamma = orthonorm_basis[:,:].copy()
-        gamma[:,i+1:] = 0
+        Lr = lr_list[i]
+        gamma = orthonorm_basis[:, :].copy()
+        gamma[:, i + 1 :] = 0
         gamma_T = np.transpose(gamma)
         P = gamma_T.dot(Lr)
-        H = H + alpha[i]*P.dot(gamma)
+        H = H + alpha[i] * P.dot(gamma)
     print("Made H matrix successfully...")
     return H

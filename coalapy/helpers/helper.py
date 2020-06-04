@@ -27,9 +27,11 @@ from coalapy import matrices as Matrix
 from . import house_keeper
 
 
-def matrix(df_csv = None, W = None, D = None, get = None): #df_csv is dfraem_csv obj; W is the subject matrix; get is the matrix to be returned 
+def matrix(
+    df_csv=None, W=None, D=None, get=None
+):  # df_csv is dfraem_csv obj; W is the subject matrix; get is the matrix to be returned
     if df_csv:
-        if df_csv.mat_type == 'gaussian':
+        if df_csv.mat_type == "gaussian":
             return Matrix.similarity_mat.Gaussian(df_csv.df, df_csv.df.shape[1])
     elif W is not None:
         if get == "degree":
@@ -42,7 +44,7 @@ def matrix(df_csv = None, W = None, D = None, get = None): #df_csv is dfraem_csv
         return None
 
 
-def csv_wrapper(mat, arg = None):
+def csv_wrapper(mat, arg=None):
     try:
         if arg == "columns":
             return house_keeper.wrapx(mat)

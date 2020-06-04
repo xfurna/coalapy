@@ -1,4 +1,3 @@
-
 """
 helpers.house_keeper: module that contains methods that are used here and there for maintenence.
 
@@ -43,9 +42,9 @@ import numpy as np
 import cmath
 
 
-def dist_sq(i , j , df): #pandas df
+def dist_sq(i, j, df):  # pandas df
     result_vector = df[list(df.columns)[i]] - df[list(df.columns)[j]]
-    result_vector= result_vector * result_vector
+    result_vector = result_vector * result_vector
     result = result_vector.sum()
     return result
 

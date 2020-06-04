@@ -25,7 +25,7 @@ class dframe_csv:
         self.mat_type = mat_type
         self.nrow = self.df.shape[0]
         self.ncol = self.df.shape[1]
-    
+
 
 """
 dfhandler.data_generator: generates data which when plotted depicts two circular clusters 
@@ -36,17 +36,20 @@ dfhandler.data_generator: generates data which when plotted depicts two circular
 """
 
 
-def data_generator(multiplier = 1, filename = "toy.csv"):
-    oc, circles_clusters = skl_data.make_circles(n_samples=400, noise=.01, random_state=0, factor = 0.5)
+def data_generator(multiplier=1, filename="toy.csv"):
+    oc, circles_clusters = skl_data.make_circles(
+        n_samples=400, noise=0.01, random_state=0, factor=0.5
+    )
     oc = multiplier * oc
     circles = np.transpose(oc)
     circles = helpers.house_keeper.wrapx(circles)
 
-    np.savetxt(filename, circles, delimiter = ',')
-    print("Saving toy data csv w/d", len(circles[:,0]))
+    np.savetxt(filename, circles, delimiter=",")
+    print("Saving toy data csv w/d", len(circles[:, 0]))
     d = len(oc[0]) - len(circles[0])
 
     # return d
+
 
 # generate_data()
 

@@ -60,23 +60,24 @@ def low_rank_mat(SVD=None, A=None, r=1):
         Ar += s[i] * np.outer(u.T[i], v[i])
     return Ar
 
-def get_weights(lap = None, Num = None):
+
+def get_weights(lap=None, Num=None):
     if lap is not None:
         M = len(lap)
     else:
         M = Num
-    return np.full((1, M), 1/M, dtype=float)[0]
+    return np.full((1, M), 1 / M, dtype=float)[0]
 
 
-def sorted_u(M): # write code to avoid passing repeatetive eigenvectors
-    s,u = np.linalg.eig(M)
-    for i in range(len(s)-1, -1, -1):
+def sorted_u(M):  # write code to avoid passing repeatetive eigenvectors
+    s, u = np.linalg.eig(M)
+    for i in range(len(s) - 1, -1, -1):
         ind = np.where(s == np.partition(s, i)[i])[0][0]
         t = len(s) - i - 1
-        temp=s[ind]
-        s[ind]=s[t]
-        s[t]=temp
-        u[:,[ind,t]] = u[:,[t,ind]]
+        temp = s[ind]
+        s[ind] = s[t]
+        s[t] = temp
+        u[:, [ind, t]] = u[:, [t, ind]]
     return u
 
 
@@ -84,68 +85,72 @@ def orthogonalize(U, eps=1e-15):
     n = len(U[0])
     V = U.T
     for i in range(n):
-        prev_basis = V[0:i]     # orthonormal basis before V[i]
-        coeff_vec = np.dot(prev_basis, V[i].T)  # each entry is np.dot(V[j], V[i]) for all j < i
+        prev_basis = V[0:i]  # orthonormal basis before V[i]
+        coeff_vec = np.dot(
+            prev_basis, V[i].T
+        )  # each entry is np.dot(V[j], V[i]) for all j < i
         # subtract projections of V[i] onto already determined basis V[0:i]
         V[i] -= np.dot(coeff_vec, prev_basis).T
         if np.linalg.norm(V[i]) < eps:
-            V[i][V[i] < eps] = 0.   # set the small entries to 0
+            V[i][V[i] < eps] = 0.0  # set the small entries to 0
         else:
             V[i] /= np.linalg.norm(V[i])
     return V.T
 
 
-def get_orthonorm_basis(lr_list = None , rank = 3):
+def get_orthonorm_basis(lr_list=None, rank=3):
     if lr_list is not None:
         return Matrix.make_mat.make_orthonorm_basis(lr_list, rank)
     else:
         print("Provide list of lra laplacian matrices")
 
 
-def get_H_matrix(orthonorm_basis = None , lr_list = None , chi_list = None , rank = 3):
+def get_H_matrix(orthonorm_basis=None, lr_list=None, chi_list=None, rank=3):
     if lr_list is not None and orthonorm_basis is not None:
         if chi_list is not None:
-            return Matrix.make_mat.make_H(orthonorm_basis , lr_list, chi_list , rank)
+            return Matrix.make_mat.make_H(orthonorm_basis, lr_list, chi_list, rank)
         else:
-            return Matrix.make_mat.make_H(orthonorm_basis , lr_list, get_weights(len(lr_list)) , rank)
+            return Matrix.make_mat.make_H(
+                orthonorm_basis, lr_list, get_weights(len(lr_list)), rank
+            )
     else:
         print("Provide list of lra laplacian matrices and orthonormal basis matrix")
 
 
 def compute_chi(lr_list):
-    from sklearn.metrics import silhouette_score 
+    from sklearn.metrics import silhouette_score
     from sklearn.cluster import KMeans
 
     chi_list = []
     for lr in lr_list:
         s, u = np.linalg.eig(lr)
 
-        ind = np.where(s == np.partition(s , 1)[1])[0][0]
+        ind = np.where(s == np.partition(s, 1)[1])[0][0]
 
         Y = s[ind].real
         u = sorted_u(lr).real
 
-        cluster = KMeans(n_clusters = 2,random_state=None).fit(u[: , :1]) 
-        cluster_labels = cluster.predict(u[: , :1]) 
-        s_score = silhouette_score(u[: , :1], cluster_labels)
+        cluster = KMeans(n_clusters=2, random_state=None).fit(u[:, :1])
+        cluster_labels = cluster.predict(u[:, :1])
+        s_score = silhouette_score(u[:, :1], cluster_labels)
 
-        chi = .25 * (s_score * Y + 1)
+        chi = 0.25 * (s_score * Y + 1)
         chi_list.append(chi)
     return chi_list
 
 
-def sort_lr(chi_list , lr_list): 
+def sort_lr(chi_list, lr_list):
     len_chi = len(chi_list)
-    for i in range(1 , len_chi): 
-  
+    for i in range(1, len_chi):
+
         key_chi = chi_list[i]
         key_lr = lr_list[i]
-  
+
         j = i - 1
-        while j >= 0 and key_chi > chi_list[j] : 
-                chi_list[j + 1] = chi_list[j] 
-                lr_list[j + 1] = lr_list[j]
-                j -= 1
-        chi_list[j + 1] = key_chi 
+        while j >= 0 and key_chi > chi_list[j]:
+            chi_list[j + 1] = chi_list[j]
+            lr_list[j + 1] = lr_list[j]
+            j -= 1
+        chi_list[j + 1] = key_chi
         lr_list[j + 1] = key_lr
     return lr_list
