@@ -51,12 +51,8 @@ If you want to tinker around with the build of this repository-
 ```bash
 $ pip3 install - requirements/dev.txt
 ```
-### Install coalapy 
-For `pipenv` followers-
-```bash
-$ pipenv install -e .
-```
-For `virtualenv` followers-
+### Install coalapy  
+This step is only for those who have followed above steps with `virtualenv`-
 ```bash
 $ pip3 install -e .
 ```
