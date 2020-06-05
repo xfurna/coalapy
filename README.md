@@ -54,7 +54,7 @@ $ pip3 install - requirements/dev.txt
 ### Install coalapy 
 For `pipenv` followers-
 ```bash
-$ pipenv run pip3 install -e .
+$ pipenv install -e .
 ```
 For `virtualenv` followers-
 ```bash
