@@ -5,7 +5,7 @@ dist: bionic
 install:
   - pip3 install pipenv
   - pipenv install
-  - pipenv run install -e .
+  - pipenv install -e .
 script:
   - pipenv run py.test
 branches:
