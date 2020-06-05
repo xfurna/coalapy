@@ -45,11 +45,11 @@ $ source venv/bin/activate
 ```
 If you just want to use the package-
 ```bash
-$ pip3 install - requirements/production.txt
+$ pip3 install -r requirements/production.txt
 ```
 If you want to tinker around with the build of this repository-
 ```bash
-$ pip3 install - requirements/dev.txt
+$ pip3 install -r requirements/dev.txt
 ```
 ### Install coalapy  
 This step is only for those who have followed above steps with `virtualenv`-
