@@ -17,9 +17,13 @@
 # Byte-compiled / optimized / DLL files
 coalapy/__pycache__/
 coalapy/helpers/__pycache__/
+coalapy/matrices/__pycache__/
+coalapy/__init__.pyc
+coalapy/modalities.pyc
+
+
 *.py[cod]
 *$py.class
-
 # C extensions
 *.so
 
