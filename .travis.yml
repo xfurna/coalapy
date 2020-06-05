@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.8"
+dist: bionic
+install:
+  - pip3 install pipenv
+  - pipenv install
+  - pipenv run install -e .
+script:
+  - pipenv run py.test
+branches:
+  only:
+  - master
