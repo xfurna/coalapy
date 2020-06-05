@@ -5,7 +5,6 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
-black = "19.10b0"
 
 [packages]
 sklearn = "*"
