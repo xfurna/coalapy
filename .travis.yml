@@ -6,7 +6,6 @@ install:
   - pip3 install pipenv
   - pipenv install
 script:
-  - pipenv install -e .
   - pipenv run py.test
 branches:
   only:
