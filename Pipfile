@@ -10,6 +10,7 @@ black = "19.10b0"
 [packages]
 sklearn = "*"
 pandas = "*"
+coalapy = {editable = true, path = "."}
 
 [requires]
 python_version = "3.8"

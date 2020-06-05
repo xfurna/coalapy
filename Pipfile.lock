@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3d546c308bac2965f2cfe16cc5aae0d105a9d278d8e4d046bd7a451769dbb3d0"
+            "sha256": "7fcaf16929795b4d41d0ca476c864deebb2e27cde34fe1fc1731b98d003d2ed2"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,10 @@
         ]
     },
     "default": {
+        "coalapy": {
+            "editable": true,
+            "path": "."
+        },
         "joblib": {
             "hashes": [
                 "sha256:61e49189c84b3c5d99a969d314853f4d1d263316cc694bec17548ebaa9c47b6e",
