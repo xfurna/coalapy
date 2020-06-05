@@ -43,7 +43,7 @@ k_mean_affinity = kmeans.predict(V[:, :1])
 k_mean_affinity = np.array(k_mean_affinity)
 k_mean_affinity = k_mean_affinity + 1
 
-CoALa = coalapy.helpers.helper.csv_wrapper(mat=k_mean_affinity, arg="columns")
-np.savetxt(".inventory/results.csv", CoALa, delimiter=",")
+# CoALa = coalapy.helpers.helper.csv_wrapper(mat=k_mean_affinity, arg="columns")
+# np.savetxt(".inventory/results.csv", CoALa, delimiter=",")
 
 print("Computed cluster info stored in .inventory/results.csv")
