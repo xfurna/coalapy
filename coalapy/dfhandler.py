@@ -36,7 +36,8 @@ dfhandler.data_generator: generates data which when plotted depicts two circular
 """
 
 
-def data_generator(multiplier=1, filename="toy.csv"):
+def data_generator(multiplier=1):
+    filename = None
     oc, circles_clusters = skl_data.make_circles(
         n_samples=400, noise=0.01, random_state=0, factor=0.5
     )
@@ -44,14 +45,16 @@ def data_generator(multiplier=1, filename="toy.csv"):
     circles = np.transpose(oc)
     circles = helpers.house_keeper.wrapx(circles)
 
+    if filename == None:
+        filename = "file" + str(multiplier) + ".csv"
+
     np.savetxt(filename, circles, delimiter=",")
     print("Saving toy data csv w/d", len(circles[:, 0]))
     d = len(oc[0]) - len(circles[0])
 
-    # return d
 
+if __name__ == "__main__":
+    import sys
 
-# generate_data()
-
-# df = pd.read_csv("toy_data.csv"    df = pd.read_csv("toy_data.csv")
-# print(df.shape)
+    multipliers = sys.argv[1:]
+    map(data_generator, multipliers)
