@@ -24,7 +24,7 @@ A `pypi` package for performing multimodal data clustering.
 Know more about CoALa [here](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjVr9TXhOjpAhWQXCsKHYHNDGMQFjABegQIARAB&url=https%3A%2F%2Fwww.ncbi.nlm.nih.gov%2Fpubmed%2F31603770&usg=AOvVaw2WCVqw4fcaxMLQHn6ub7_b).
 
 ## Installation
-Till it is published on `pypi`, you have to install it in editable mode from the repository clone itself. For that, follow the instructions below.
+Until it is published on `pypi`, you have to install it in editable mode from the repository clone itself. For that, follow the instructions below.
 
 ### Clone coalapy
 Clone this repository and change your working directory to `coalapy/`.
@@ -61,7 +61,7 @@ $ pip3 install -e .
 ```
 
 ## Usage
-You can refer `main.py` file as a sample script regarding the usage. 
+You can refer `sample.py` file as a sample script regarding the usage. 
 
 ## Dependency Graph
 ```bash
