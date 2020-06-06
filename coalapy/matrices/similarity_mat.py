@@ -14,7 +14,7 @@ import numpy as np
 from .. import helpers as hf
 
 
-def Gaussian(df, ncol):  # pandas data frame
+def Gaussian(df, ncol):
     A = np.zeros((ncol, ncol))
 
     sigma_sq = 0

@@ -41,7 +41,7 @@ def get_similarity(df_csv):
     if df_csv.path:
         print("Recieved dframe_csv object with path-", df_csv.path)
         print("Calling matrix with df_csv args", df_csv.path)
-        mat = similarity_mat.Gaussian(df_csv=df_csv)  # dframe_csv obj
+        mat = similarity_mat.Gaussian(df_csv=df_csv)
         print("Constructed similarity matrix: ", df_csv.ncol, "x", df_csv.ncol)
     else:
         print("no paths!!", df_csv.path)

@@ -69,7 +69,8 @@ def get_weights(lap=None, Num=None):
     return np.full((1, M), 1 / M, dtype=float)[0]
 
 
-def sorted_u(M):  # write code to avoid passing repeatetive eigenvectors
+# ToDo: write code to avoid passing repeatetive eigenvectors
+def sorted_u(M):
     s, u = np.linalg.eig(M)
     for i in range(len(s) - 1, -1, -1):
         ind = np.where(s == np.partition(s, i)[i])[0][0]
@@ -85,14 +86,11 @@ def orthogonalize(U, eps=1e-15):
     n = len(U[0])
     V = U.T
     for i in range(n):
-        prev_basis = V[0:i]  # orthonormal basis before V[i]
-        coeff_vec = np.dot(
-            prev_basis, V[i].T
-        )  # each entry is np.dot(V[j], V[i]) for all j < i
-        # subtract projections of V[i] onto already determined basis V[0:i]
+        prev_basis = V[0:i]
+        coeff_vec = np.dot(prev_basis, V[i].T)
         V[i] -= np.dot(coeff_vec, prev_basis).T
         if np.linalg.norm(V[i]) < eps:
-            V[i][V[i] < eps] = 0.0  # set the small entries to 0
+            V[i][V[i] < eps] = 0.0
         else:
             V[i] /= np.linalg.norm(V[i])
     return V.T
