@@ -1,45 +1,35 @@
-def test_coalapy():
+from . import meta
 
+
+def test_coalapy():
     import coalapy
     import numpy as np
     from sklearn.cluster import KMeans
     import pandas as pd
     from sklearn.metrics import silhouette_score
 
-    # lists
-
-    path_list = [".inventory/X2.csv", ".inventory/X1.csv"]
-    lap = []
-
-    # expected number of clusters
-
-    k = 2
-    rank = 8
-
     # READ MODALITIES
 
     try:
-        for path in path_list:
+        for path in meta.PATH_LIST:
             X = coalapy.modalities.modality(path, mat_type="gaussian")
             print("Made a modality.")
-            lap.append(X.laplacian)
+            meta.LAP.append(X.laplacian)
             print("Laplacian appended successfully!")
     except:
-        print("NO PATH PROVIDED", path_list)
+        print("NO PATH PROVIDED", meta.PATH_LIST)
 
-    Ls = coalapy.modalities.lap_list(lap=lap, rank=rank)
+    Ls = coalapy.modalities.lap_list(lap=meta.LAP, rank=meta.rank)
 
     V = Ls.joint_eig_vectors
     V = V.real
 
-    kmeans = KMeans(n_clusters=k, random_state=0).fit(V[:, :1])
+    kmeans = KMeans(n_clusters=meta.k, random_state=0).fit(V[:, :1])
     k_mean_affinity = kmeans.predict(V[:, :1])
 
     k_mean_affinity = np.array(k_mean_affinity)
 
-    # Comparing the calculations with the ground truth
-
-    truth = pd.read_csv(".inventory/gr_truth.csv")
+    truth = pd.read_csv(meta.GR_TRUTH)
     truth = truth.to_numpy()
     labels = truth[:, 1]
 
@@ -60,4 +50,4 @@ def test_coalapy():
     print("\n % Accuracy on comparision with ground truth: ", accuracy)
     print("Silhoutte score for: ", s_score)
 
-    assert accuracy > 55
+    assert accuracy > 60
