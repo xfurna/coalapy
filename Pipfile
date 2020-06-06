@@ -10,6 +10,8 @@ pytest = "*"
 sklearn = "*"
 pandas = "*"
 coalapy = {editable = true, path = "."}
+codecov = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.8"
