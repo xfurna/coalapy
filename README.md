@@ -62,35 +62,43 @@ You can refer `main.py` file as a sample script regarding the usage.
 
 ## Dependency Graph
 ```bash
-black==19.10b0
-  - appdirs [required: Any, installed: 1.4.4]
-  - attrs [required: >=18.1.0, installed: 19.3.0]
-  - click [required: >=6.5, installed: 7.1.2]
-  - pathspec [required: >=0.6,<1, installed: 0.8.0]
-  - regex [required: Any, installed: 2020.5.14]
-  - toml [required: >=0.9.4, installed: 0.10.1]
-  - typed-ast [required: >=1.4.0, installed: 1.4.1]
+appdirs==1.4.4
+click==7.1.2
+coalapy==0.0.1
+codecov==2.1.4
+  - coverage [required: Any, installed: 5.1]
+  - requests [required: >=2.7.9, installed: 2.23.0]
+    - certifi [required: >=2017.4.17, installed: 2020.4.5.1]
+    - chardet [required: >=3.0.2,<4, installed: 3.0.4]
+    - idna [required: >=2.5,<3, installed: 2.9]
+    - urllib3 [required: >=1.21.1,<1.26,!=1.25.1,!=1.25.0, installed: 1.25.9]
 pandas==1.0.4
-  - numpy [required: >=1.13.3, installed: ?]
+  - numpy [required: >=1.13.3, installed: 1.18.5]
   - python-dateutil [required: >=2.6.1, installed: 2.8.1]
     - six [required: >=1.5, installed: 1.15.0]
   - pytz [required: >=2017.2, installed: 2020.1]
-pytest==5.4.3
-  - attrs [required: >=17.4.0, installed: 19.3.0]
-  - more-itertools [required: >=4.0.0, installed: 8.3.0]
-  - packaging [required: Any, installed: 20.4]
-    - pyparsing [required: >=2.0.2, installed: 2.4.7]
-    - six [required: Any, installed: 1.15.0]
-  - pluggy [required: >=0.12,<1.0, installed: 0.13.1]
-  - py [required: >=1.5.0, installed: 1.8.1]
-  - wcwidth [required: Any, installed: 0.2.3]
+pathspec==0.8.0
+pytest-cov==2.9.0
+  - coverage [required: >=4.4, installed: 5.1]
+  - pytest [required: >=3.6, installed: 5.4.3]
+    - attrs [required: >=17.4.0, installed: 19.3.0]
+    - more-itertools [required: >=4.0.0, installed: 8.3.0]
+    - packaging [required: Any, installed: 20.4]
+      - pyparsing [required: >=2.0.2, installed: 2.4.7]
+      - six [required: Any, installed: 1.15.0]
+    - pluggy [required: >=0.12,<1.0, installed: 0.13.1]
+    - py [required: >=1.5.0, installed: 1.8.1]
+    - wcwidth [required: Any, installed: 0.2.3]
+regex==2020.5.14
 sklearn==0.0
   - scikit-learn [required: Any, installed: 0.23.1]
     - joblib [required: >=0.11, installed: 0.15.1]
-    - numpy [required: >=1.13.3, installed: ?]
+    - numpy [required: >=1.13.3, installed: 1.18.5]
     - scipy [required: >=0.19.1, installed: 1.4.1]
-      - numpy [required: >=1.13.3, installed: ?]
+      - numpy [required: >=1.13.3, installed: 1.18.5]
     - threadpoolctl [required: >=2.0.0, installed: 2.1.0]
+toml==0.10.1
+typed-ast==1.4.1
 ```
 
 ## Contributions
