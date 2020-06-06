@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import setuptools
 
 with open("README.md", "r") as fh:
@@ -12,7 +11,7 @@ setuptools.setup(
     description="A multimodal data clustering solution",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/evi1haxor/CoALa",
+    url="https://github.com/evi1haxor/coalapy",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
