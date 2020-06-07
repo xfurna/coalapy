@@ -58,11 +58,11 @@ def get_degree(W):
 
 def get_shifted_laplacian(W, D):
     D_diag = D.diagonal()
-    D_diag = 1 / D_diag ** 1 / 2
+    D_diag = D_diag ** (-0.5)
     Dd = np.zeros((len(D), len(D)))
     np.fill_diagonal(Dd, D_diag)
-    prod = Dd.dot(W)
-    L = np.identity(len(D[0]), dtype=float) + prod.dot(Dd)
+    prod = Dd.dot(W).dot(Dd)
+    L = np.identity(len(D[0]), dtype=float) + prod
     return L
 
 
