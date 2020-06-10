@@ -1,16 +1,15 @@
 from . import meta
 import coalapy
 import pandas as pd
+import numpy as np
 
 def test_accuracy():
-    import numpy as np
     gr_truth = pd.read_csv(meta.GR_TRUTH).to_numpy()[:,1]
     assert (coalapy.analyse.gr_accuracy(GR_TRUTH=meta.GR_TRUTH, labels=gr_truth)==100)
 
 
 
 def test_coala():
-    import numpy as np
     from sklearn.cluster import KMeans
     from sklearn.metrics import silhouette_score
 
