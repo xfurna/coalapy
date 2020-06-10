@@ -10,7 +10,7 @@ def gr_accuracy(GR_TRUTH = None, labels = None, metadata = None):
 
         labels = np.array(labels)
 
-    if GR_TRUTH:
+    if GR_TRUTH is not None:
         n = len(labels)
         gr_truth = pd.read_csv(GR_TRUTH).to_numpy()[:,1]
 
@@ -41,4 +41,19 @@ def silhouette_score(metadata = None):
     s_score = silhouette_score(metadata['data'], labels)
 
     return s_score
+
+def f_measure():
+    pass
+
+def jaccard():
+    pass
+
+def purity():
+    pass
+
+def dice():
+    pass
+
+def rand():
+    pass
 
