@@ -14,15 +14,17 @@ lap = []
 k = 2
 rank = 8
 
+print("Making modalities.")
+
 try:
     for path in path_list:
         X = coalapy.modalities.modality(path, mat_type="gaussian")
-        print("Made a modality.")
         lap.append(X.laplacian)
-        print("Laplacian appended successfully!")
 except:
     print("NO PATH PROVIDED")
 
+print("All modalities made successfully!")
+print("Laplacian appended successfully!")
 Ls = coalapy.modalities.lap_list(lap=lap, rank=rank)
 
 V = Ls.joint_eig_vectors
