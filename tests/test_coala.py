@@ -1,11 +1,15 @@
 from . import meta
+import coalapy
+import pandas as pd
 
+def test_accuracy():
+    import numpy as np
+    gr_truth = pd.read_csv(meta.GR_TRUTH).to_numpy()[:,1]       
+    assert (coalapy.analyse.gr_accuracy(GR_TRUTH=gr_truth, labels=gr_truth)==100)
 
-def test_coalapy():
-    import coalapy
+def test_coala():
     import numpy as np
     from sklearn.cluster import KMeans
-    import pandas as pd
     from sklearn.metrics import silhouette_score
 
     # READ MODALITIES
@@ -17,7 +21,7 @@ def test_coalapy():
             meta.LAP.append(X.laplacian)
             print("Laplacian appended successfully!")
     except:
-        print("NO PATH PROVIDED", meta.PATH_LIST)
+        print("WRONG PATH PROVIDED", meta.PATH_LIST)
 
     Ls = coalapy.modalities.lap_list(lap=meta.LAP, rank=meta.rank)
 
