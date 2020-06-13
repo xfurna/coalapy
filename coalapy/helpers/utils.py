@@ -103,9 +103,11 @@ def get_orthonorm_basis(lr_list=None, rank=3):
         print("Provide list of lra laplacian matrices")
 
 
-def get_H_matrix(orthonorm_basis=None, lr_list=None, chi_list=None, rank=3):
+def get_H_matrix(orthonorm_basis=None, lr_list=None, chi_list=None, rank=3, beta=1.25):
     if lr_list is not None and orthonorm_basis is not None:
         if chi_list is not None:
+            for i, chi in enumerate(chi_list):
+                chi_list[i]=chi/((beta)**(i+1))
             return Matrix.make_mat.make_H(orthonorm_basis, lr_list, chi_list, rank)
         else:
             return Matrix.make_mat.make_H(

@@ -26,14 +26,14 @@ class lap_list:
         self.rank = rank
         self.M = len(lap)
         self.lra = self.__compute_lra(lap)
-        self.chi_list = helpers.utils.compute_chi(self.lra)
+        self.chi_list = helpers.utils.compute_chi(lap)
         self.lap = helpers.utils.sort_lr(self.chi_list, self.lra)
         self.orthonorm_basis = helpers.utils.get_orthonorm_basis(
             lr_list=self.lra, rank=rank
         )
         self.H = helpers.utils.get_H_matrix(
             orthonorm_basis=self.orthonorm_basis,
-            lr_list=self.lra,
+            lr_list=self.lap,
             chi_list=self.chi_list,
             rank=rank,
         )
@@ -61,3 +61,16 @@ class lap_list:
         V = U.dot(R)
         print("computed joint-eigenvector-matrix")
         return V
+
+    def plan_b(self, beta=1.25):
+        import numpy as np
+        alpha_list=self.chi_list
+        for i, chi in enumerate(alpha_list):
+            alpha_list[i]=chi/((beta)**(i+1))
+        L = np.zeros(self.lap[0].shape)
+        for i,lr in enumerate(self.lap):
+            L+=lr*alpha_list[i]
+        return L
+
+
+
