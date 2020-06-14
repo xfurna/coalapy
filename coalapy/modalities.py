@@ -67,6 +67,7 @@ class lap_list:
         alpha_list=self.chi_list
         for i, chi in enumerate(alpha_list):
             alpha_list[i]=chi/((beta)**(i+1))
+        alpha_list = [chi/np.sum(chi_list) for chi in alpha_list]        
         L = np.zeros(self.lap[0].shape)
         for i,lr in enumerate(self.lap):
             L+=lr*alpha_list[i]

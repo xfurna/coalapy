@@ -63,6 +63,7 @@ def get_shifted_laplacian(W, D):
     np.fill_diagonal(Dd, D_diag)
     prod = Dd.dot(W).dot(Dd)
     L = np.identity(len(D[0]), dtype=float) + prod
+    # L = Dd.dot(W).dot(Dd)
     return L
 
 
