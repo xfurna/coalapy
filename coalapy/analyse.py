@@ -31,22 +31,40 @@ def gr_accuracy(GR_TRUTH = None, labels = None, metadata = None):
     
     return  accuracy
 
-def silhouette_score(metadata = None):
-    from sklearn.cluster import KMeans
+def silhouette_score(labels=None, data=None, metadata = None):
     from sklearn.metrics import silhouette_score
+    if metadata is not None:
+        from sklearn.cluster import KMeans
 
-    labels = KMeans(n_clusters=metadata['n_cluster'], random_state=0).fit(metadata['data']).predict(metadata['data'])
+        labels_pred = KMeans(n_clusters=metadata['n_cluster'], random_state=0).fit(metadata['data']).predict(metadata['data'])
 
-    labels = np.array(labels)
-    s_score = silhouette_score(metadata['data'], labels)
+        labels_pred = np.array(labels_pred)
+        s_score = silhouette_score(metadata['data'], labels_pred)
+    else:
+        s_score = silhouette_score(data, labels)
 
     return s_score
 
-def f_measure():
-    pass
+def f_measure(metadata = None):
+    from sklearn.metrics import f1_score
+    from sklearn.cluster import KMeans
+    labels_pred = KMeans(n_clusters=metadata['n_cluster'], random_state=0).fit(metadata['data']).predict(metadata['data'])
 
-def jaccard():
-    pass
+    labels_pred = np.array(labels_pred)
+    f_measure = f1_score(metadata['gr_truth'], labels_pred, )
+
+    return f_measure
+
+def jaccard(metadata = None):
+    from sklearn.cluster import KMeans
+    from sklearn.metrics import jaccard_score
+
+    labels_pred = KMeans(n_clusters=metadata['n_cluster'], random_state=0).fit(metadata['data']).predict(metadata['data'])
+
+    labels_pred = np.array(labels_pred)
+    j_score = jaccard_score(metadata['gr_truth'], labels_pred)
+
+    return j_score
 
 def purity():
     pass
