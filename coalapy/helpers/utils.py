@@ -154,3 +154,17 @@ def sort_lr(chi_list, lr_list):
         chi_list[j + 1] = key_chi
         lr_list[j + 1] = key_lr
     return lr_list
+
+def scale(df, center=True, scale=True):
+    ncol = df.shape[0]
+    if center:
+        for i in range(ncol):
+            df.iloc[i] -= df.iloc[i].mean()
+    if scale and center:
+        for i in range(ncol):
+            df.iloc[i] /= df.iloc[i].std()
+    elif scale:
+        for i in range(ncol):
+            df.iloc[i] /= np.sqrt(df.iloc[i].pow(2).sum().div(df.iloc[i].count() - 1))
+    return df
+    

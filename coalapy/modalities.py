@@ -8,8 +8,8 @@ from . import helpers
 
 
 class modality:
-    def __init__(self, path=None, mat_type="gaussian"):
-        self.W = helpers.helper.matrix(dfhandler.dframe_csv(path, mat_type=mat_type))
+    def __init__(self, path=None, mat_type="gaussian", clean=True):
+        self.W = helpers.helper.matrix(dfhandler.dframe_csv(path, mat_type=mat_type, clean=clean))
         self.degree = helpers.helper.matrix(W=self.W, get="degree")
         self.laplacian = self.__get_laplacian(get="shifted_laplacian")
         print(

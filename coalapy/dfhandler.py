@@ -19,8 +19,10 @@ dfhandler.dframe_csv.__init__:
 
 
 class dframe_csv:
-    def __init__(self, path, mat_type):
+    def __init__(self, path, mat_type, clean=True):
         self.df = pd.read_csv(path)
+        if clean:
+            self.df = helpers.utils.scale(self.df, center=True, scale=False)
         self.path = path
         self.mat_type = mat_type
         self.nrow = self.df.shape[0]
