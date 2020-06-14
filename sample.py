@@ -9,7 +9,7 @@ import pandas as pd
 
 path_list = []
 lap = []
-
+mod=[]
 # expected number of clusters
 k = 2
 rank = 8
@@ -19,6 +19,7 @@ print("Making modalities.")
 try:
     for path in path_list:
         X = coalapy.modalities.modality(path, mat_type="gaussian", clean=True)
+        mod.append(X)
         lap.append(X.laplacian)
 except:
     print("NO PATH PROVIDED")
