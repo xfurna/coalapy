@@ -108,6 +108,7 @@ def get_H_matrix(orthonorm_basis=None, lr_list=None, chi_list=None, rank=3, beta
         if chi_list is not None:
             for i, chi in enumerate(chi_list):
                 chi_list[i]=chi/((beta)**(i+1))
+            chi_list = [chi/np.sum(chi_list) for chi in chi_list]    
             return Matrix.make_mat.make_H(orthonorm_basis, lr_list, chi_list, rank)
         else:
             return Matrix.make_mat.make_H(
