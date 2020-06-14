@@ -18,7 +18,7 @@ print("Making modalities.")
 
 try:
     for path in path_list:
-        X = coalapy.modalities.modality(path, mat_type="gaussian")
+        X = coalapy.modalities.modality(path, mat_type="gaussian", clean=True)
         lap.append(X.laplacian)
 except:
     print("NO PATH PROVIDED")
