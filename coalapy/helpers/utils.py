@@ -56,6 +56,8 @@ def low_rank_mat(SVD=None, A=None, r=1):
         SVD = np.linalg.svd(A, full_matrices=False)
     u, s, v = SVD
     Ar = np.zeros((len(u), len(v)))
+    s[np.where(s<1e-10)]=0
+    s=np.around(s, decimals=10)
     for i in range(r):
         Ar += s[i] * np.outer(u.T[i], v[i])
     return Ar
@@ -72,6 +74,8 @@ def get_weights(lap=None, Num=None):
 # ToDo: write code to avoid passing repeatetive eigenvectors
 def sorted_u(M):
     s, u = np.linalg.eig(M)
+    s[np.where(s<1e-10)]=0
+    s=np.around(s, decimals=10)
     for i in range(len(s) - 1, -1, -1):
         ind = np.where(s == np.partition(s, i)[i])[0][0]
         t = len(s) - i - 1
@@ -82,7 +86,7 @@ def sorted_u(M):
     return u
 
 
-def orthogonalize(U, eps=1e-15):
+def orthogonalize(U, eps=1e-10):
     n = len(U[0])
     V = U.T
     for i in range(n):
@@ -118,13 +122,15 @@ def get_H_matrix(orthonorm_basis=None, lr_list=None, chi_list=None, rank=3, beta
         print("Provide list of lra laplacian matrices and orthonormal basis matrix")
 
 
-def compute_chi(lr_list):
+def compute_chi(lr_list, n_clusters=3):
     from sklearn.metrics import silhouette_score
     from sklearn.cluster import KMeans
 
     chi_list = []
     for lr in lr_list:
         s, u = np.linalg.eig(lr)
+        s[np.where(s<1e-10)]=0
+        s=np.around(s, decimals=10)        
 
         ind = np.where(s == np.partition(s, 1)[1])[0][0]
 
