@@ -122,26 +122,26 @@ def get_H_matrix(orthonorm_basis=None, lr_list=None, chi_list=None, rank=3, beta
         print("Provide list of lra laplacian matrices and orthonormal basis matrix")
 
 
-def compute_chi(lr_list, n_clusters=3):
+def compute_chi(lap_list):
     from sklearn.metrics import silhouette_score
     from sklearn.cluster import KMeans
 
     chi_list = []
-    for lr in lr_list:
+    for lr in lap_list:
         s, u = np.linalg.eig(lr)
         s[np.where(s<1e-10)]=0
         s=np.around(s, decimals=10)        
 
-        ind = np.where(s == np.partition(s, 1)[1])[0][0]
+        ind = np.where(s == np.partition(s, -2)[-2])[0][0]
 
         Y = s[ind].real
         u = sorted_u(lr).real
+        u_ = u[:,1].reshape(-1,1)
+        cluster = KMeans(n_clusters=2, random_state=None).fit(u_)
+        cluster_labels = cluster.predict(u_)
+        s_score = silhouette_score(u_, cluster_labels)
 
-        cluster = KMeans(n_clusters=2, random_state=None).fit(u[:, :1])
-        cluster_labels = cluster.predict(u[:, :1])
-        s_score = silhouette_score(u[:, :1], cluster_labels)
-
-        chi = 0.25 * (s_score * Y + 1)
+        chi = s_score * Y
         chi_list.append(chi)
     return chi_list
 
