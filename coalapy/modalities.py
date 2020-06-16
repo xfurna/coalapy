@@ -22,7 +22,7 @@ class modality:
 
 
 class lap_list:
-    def __init__(self, lap=None, rank=None):
+    def __init__(self, lap=None, rank=None, n_clusters=3):
         self.rank = rank
         self.M = len(lap)
         self.lra = self.__compute_lra(lap)
@@ -72,6 +72,12 @@ class lap_list:
         for i,lr in enumerate(self.lap):
             L+=lr*alpha_list[i]
         return L
+
+    def get_alpha(self):
+        chi_list=self.chi_list.copy()
+        for i, chi in enumerate(chi_list):
+            chi_list[i]=chi/((1.25)**(i+1))
+        return chi_list/sum(chi_list)
 
 
 
