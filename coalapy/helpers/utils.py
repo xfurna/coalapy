@@ -110,10 +110,11 @@ def get_orthonorm_basis(lr_list=None, rank=3):
 def get_H_matrix(orthonorm_basis=None, lr_list=None, chi_list=None, rank=3, beta=1.25):
     if lr_list is not None and orthonorm_basis is not None:
         if chi_list is not None:
+            alpha=[]
             for i, chi in enumerate(chi_list):
-                chi_list[i]=chi/((beta)**(i+1))
-            chi_list = [chi/np.sum(chi_list) for chi in chi_list]    
-            return Matrix.make_mat.make_H(orthonorm_basis, lr_list, chi_list, rank)
+                alpha.append(chi/((beta)**(i+1)))
+            alpha = [chi_f/np.sum(alpha) for chi_f in alpha]    
+            return Matrix.make_mat.make_H(orthonorm_basis, lr_list, alpha, rank)
         else:
             return Matrix.make_mat.make_H(
                 orthonorm_basis, lr_list, get_weights(len(lr_list)), rank
@@ -141,7 +142,7 @@ def compute_chi(lap_list):
         cluster_labels = cluster.predict(u_)
         s_score = silhouette_score(u_, cluster_labels)
 
-        chi = s_score * Y
+        chi = s_score * np.absolute(Y)
         chi_list.append(chi)
     return chi_list
 
