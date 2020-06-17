@@ -30,7 +30,7 @@ class lap_list:
         self.chi_list = helpers.utils.compute_chi(lap_full)
         self.lap = helpers.utils.sort_lr(self.chi_list, self.lra)
         self.orthonorm_basis = helpers.utils.get_orthonorm_basis(
-            lr_list=self.lra, rank=rank
+            lap_list=self.lap_full, rank=rank
         )
         self.H = helpers.utils.get_H_matrix(
             orthonorm_basis=self.orthonorm_basis,
