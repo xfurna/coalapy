@@ -19,7 +19,7 @@ def test_coala():
 
     try:
         for path in meta.PATH_LIST:
-            X = coalapy.modalities.modality(path, mat_type="gaussian")
+            X = coalapy.modalities.modality(path, mat_type="gaussian", clean=True)
             meta.LAP.append(X.laplacian)
     except:
         print("NO PATH PROVIDED")
@@ -27,7 +27,7 @@ def test_coala():
     print("All modalities made successfully!")
     print("Laplacian appended successfully!")
 
-    Ls = coalapy.modalities.lap_list(lap=meta.LAP, rank=meta.rank)
+    Ls = coalapy.modalities.lap_list(lap_full=meta.LAP, rank=meta.rank)
 
     V = Ls.joint_eig_vectors
     V = V.real
