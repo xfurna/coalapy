@@ -3,10 +3,10 @@ import coalapy
 import pandas as pd
 import numpy as np
 
-def test_accuracy():
-    gr_truth = pd.read_csv(meta.GR_TRUTH).to_numpy()[:,1]
-    assert (coalapy.analyse.gr_accuracy(GR_TRUTH=meta.GR_TRUTH, labels=gr_truth)==100)
 
+def test_accuracy():
+    gr_truth = pd.read_csv(meta.GR_TRUTH).to_numpy()[:, 1]
+    assert coalapy.analyse.gr_accuracy(GR_TRUTH=meta.GR_TRUTH, labels=gr_truth) == 100
 
 
 def test_coala():
@@ -14,7 +14,7 @@ def test_coala():
     from sklearn.metrics import silhouette_score
 
     # READ MODALITIES
-    
+
     print("Making modalities.")
 
     try:
@@ -31,9 +31,11 @@ def test_coala():
 
     V = Ls.joint_eig_vectors
     V = V.real
-    metadata={'n_cluster':2, 'data':V[:,:1]}
+    metadata = {"n_cluster": 2, "data": V[:, :1]}
 
     print("Silhoutte score: ", coalapy.analyse.silhouette_score(metadata=metadata))
-    accuracy = coalapy.analyse.gr_accuracy(GR_TRUTH=meta.GR_TRUTH, metadata={'n_cluster':2, 'data':V[:,:1]})
+    accuracy = coalapy.analyse.gr_accuracy(
+        GR_TRUTH=meta.GR_TRUTH, metadata={"n_cluster": 2, "data": V[:, :1]}
+    )
 
     assert accuracy > 60

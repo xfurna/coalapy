@@ -26,19 +26,19 @@ def make_orthonorm_basis(lap_list, r):
     n = len(lap_list[0])
     Ur0 = hf.utils.sorted_u(lap_list[0])
     U = np.zeros((n, r))
-    U = Ur0[:, 1:r+1].copy()
-    print("\nUr0 is\n", Ur0[1:,0,:9],"\n",Ur0[1:1,:9])
+    U = Ur0[:, 1 : r + 1].copy()
+    print("\nUr0 is\n", Ur0[1:, 0, :9], "\n", Ur0[1:1, :9])
 
     for i in lap_list[1:]:
         Ui = hf.utils.sorted_u(i)
-        Uri = Ui[:, 1:r+1].copy()
+        Uri = Ui[:, 1 : r + 1].copy()
 
         Ut = U.transpose()
 
         S = Ut.dot(Uri)
         P = U.dot(S)
         Q = Uri - P
-        print("\nUi is\n", Ui[1:,:9],"\n",Ui[1:,1,:9])
+        print("\nUi is\n", Ui[1:, :9], "\n", Ui[1:, 1, :9])
         G = hf.utils.orthogonalize(Q)
 
         U = np.append(U, G, axis=1)

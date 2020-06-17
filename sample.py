@@ -9,7 +9,7 @@ import pandas as pd
 
 path_list = []
 lap = []
-mod=[]
+mod = []
 # expected number of clusters
 k = 2
 rank = 8

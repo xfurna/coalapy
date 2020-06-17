@@ -56,8 +56,8 @@ def low_rank_mat(SVD=None, A=None, r=1):
         SVD = np.linalg.svd(A, full_matrices=False)
     u, s, v = SVD
     Ar = np.zeros((len(u), len(v)))
-    s[np.where(s<1e-10)]=0
-    s=np.around(s, decimals=10)
+    s[np.where(s < 1e-10)] = 0
+    s = np.around(s, decimals=10)
     for i in range(r):
         Ar += s[i] * np.outer(u.T[i], v[i])
     return Ar
@@ -74,8 +74,8 @@ def get_weights(lap=None, Num=None):
 # ToDo: write code to avoid passing repeatetive eigenvectors
 def sorted_u(M):
     s, u = np.linalg.eig(M)
-    s[np.where(s<1e-10)]=0
-    s=np.around(s, decimals=10)
+    s[np.where(s < 1e-10)] = 0
+    s = np.around(s, decimals=10)
     for i in range(len(s) - 1, -1, -1):
         ind = np.where(s == np.partition(s, i)[i])[0][0]
         t = len(s) - i - 1
@@ -85,21 +85,22 @@ def sorted_u(M):
         u[:, [ind, t]] = u[:, [t, ind]]
     return u
 
+
 def orthogonalize(x):
-    n=x.shape[1]
-    m=x.shape[0]
-    q=np.zeros((m,n))
-    r=np.zeros((n,n))
-    
+    n = x.shape[1]
+    m = x.shape[0]
+    q = np.zeros((m, n))
+    r = np.zeros((n, n))
+
     for j in range(n):
-        v=x[:,j]
+        v = x[:, j]
         if j > 1:
-            for i in range(j-1):
-                tq=q[:,i].T
-                r[i,j] = tq.dot(x[:,j])
-                v=v-r[i,j]*q[:,i]
-        r[j,j]=sum(v**2)**0.5
-        q[:,j]=v/r[j,j]
+            for i in range(j - 1):
+                tq = q[:, i].T
+                r[i, j] = tq.dot(x[:, j])
+                v = v - r[i, j] * q[:, i]
+        r[j, j] = sum(v ** 2) ** 0.5
+        q[:, j] = v / r[j, j]
     # qrcomp=list(Q=q, R=r)
     return q
 
@@ -128,10 +129,10 @@ def get_orthonorm_basis(lap_list=None, rank=3):
 def get_H_matrix(orthonorm_basis=None, lr_list=None, chi_list=None, rank=3, beta=1.25):
     if lr_list is not None and orthonorm_basis is not None:
         if chi_list is not None:
-            alpha=[]
+            alpha = []
             for i, chi in enumerate(chi_list):
-                alpha.append(chi/((beta)**(i+1)))
-            alpha = [chi_f/np.sum(alpha) for chi_f in alpha]    
+                alpha.append(chi / ((beta) ** (i + 1)))
+            alpha = [chi_f / np.sum(alpha) for chi_f in alpha]
             return Matrix.make_mat.make_H(orthonorm_basis, lr_list, alpha, rank)
         else:
             return Matrix.make_mat.make_H(
@@ -148,14 +149,14 @@ def compute_chi(lap_list):
     chi_list = []
     for lr in lap_list:
         s, u = np.linalg.eig(lr)
-        s[np.where(s<1e-10)]=0
-        s=np.around(s, decimals=10)        
+        s[np.where(s < 1e-10)] = 0
+        s = np.around(s, decimals=10)
 
         ind = np.where(s == np.partition(s, -2)[-2])[0][0]
 
         Y = s[ind].real
         u = sorted_u(lr).real
-        u_ = u[:,1].reshape(-1,1)
+        u_ = u[:, 1].reshape(-1, 1)
         cluster = KMeans(n_clusters=2, random_state=None).fit(u_)
         cluster_labels = cluster.predict(u_)
         s_score = silhouette_score(u_, cluster_labels)
@@ -181,6 +182,7 @@ def sort_lr(chi_list, lr_list):
         lr_list[j + 1] = key_lr
     return lr_list
 
+
 def scale(df, center=True, scale=True):
     ncol = df.shape[0]
     if center:
@@ -193,4 +195,3 @@ def scale(df, center=True, scale=True):
         for i in range(ncol):
             df.iloc[i] /= np.sqrt(df.iloc[i].pow(2).sum().div(df.iloc[i].count() - 1))
     return df
-    

@@ -59,6 +59,6 @@ def csv_wrapper(mat, arg=None):
 
 def colNormalize(V):
     for i in range(len(V[0])):
-        nrm = sum(V[:,i]**2)**0.5
-        V[:,i] = V[:,i]/nrm
+        nrm = sum(V[:, i] ** 2) ** 0.5
+        V[:, i] = V[:, i] / nrm
     return V
