@@ -55,3 +55,10 @@ def csv_wrapper(mat, arg=None):
     except:
         print("NO arg PROVIDED!\nReturning a wrap around...")
         return house_keeper.wrap(mat)
+
+
+def colNormalize(V):
+    for i in range(len(V[0])):
+        nrm = sum(V[:,i]**2)**0.5
+        V[:,i] = V[:,i]/nrm
+    return V

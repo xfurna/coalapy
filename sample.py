@@ -30,6 +30,8 @@ Ls = coalapy.modalities.lap_list(lap=lap, rank=rank)
 
 V = Ls.joint_eig_vectors
 V = V.real
+V = coalapy.helpers.helper.colNormalize(V)
+
 
 kmeans = KMeans(n_clusters=k, random_state=0).fit(V[:, :1])
 k_mean_affinity = kmeans.predict(V[:, :1])
