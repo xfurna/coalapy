@@ -85,24 +85,42 @@ def sorted_u(M):
         u[:, [ind, t]] = u[:, [t, ind]]
     return u
 
+def orthogonalize(x):
+    n=x.shape[1]
+    m=x.shape[0]
+    q=np.zeros((m,n))
+    r=np.zeros((n,n))
+    
+    for j in range(n):
+        v=x[:,j]
+        if j > 1:
+            for i in range(j-1):
+                tq=q[:,i].T
+                r[i,j] = tq.dot(x[:,j])
+                v=v-r[i,j]*q[:,i]
+        r[j,j]=sum(v**2)**0.5
+        q[:,j]=v/r[j,j]
+    # qrcomp=list(Q=q, R=r)
+    return q
 
-def orthogonalize(U, eps=1e-10):
-    n = len(U[0])
-    V = U.T
-    for i in range(n):
-        prev_basis = V[0:i]
-        coeff_vec = np.dot(prev_basis, V[i].T)
-        V[i] -= np.dot(coeff_vec, prev_basis).T
-        if np.linalg.norm(V[i]) < eps:
-            V[i][V[i] < eps] = 0.0
-        else:
-            V[i] /= np.linalg.norm(V[i])
-    return V.T
+
+# def orthogonalize(U, eps=1e-10):
+#     n = len(U[0])
+#     V = U.T
+#     for i in range(n):
+#         prev_basis = V[0:i]
+#         coeff_vec = np.dot(prev_basis, V[i].T)
+#         V[i] -= np.dot(coeff_vec, prev_basis).T
+#         if np.linalg.norm(V[i]) < eps:
+#             V[i][V[i] < eps] = 0.0
+#         else:
+#             V[i] /= np.linalg.norm(V[i])
+#     return V.T
 
 
-def get_orthonorm_basis(lr_list=None, rank=3):
-    if lr_list is not None:
-        return Matrix.make_mat.make_orthonorm_basis(lr_list, rank)
+def get_orthonorm_basis(lap_list=None, rank=3):
+    if lap_list is not None:
+        return Matrix.make_mat.make_orthonorm_basis(lap_list, rank)
     else:
         print("Provide list of lra laplacian matrices")
 
