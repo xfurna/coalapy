@@ -27,34 +27,40 @@ def make_orthonorm_basis(lap_list, r):
     Ur0 = hf.utils.sorted_u(lap_list[0])
     U = np.zeros((n, r))
     U = Ur0[:, 1 : r + 1].copy()
-    print("\nUr0 is\n", Ur0[1:, 0, :9], "\n", Ur0[1:1, :9])
-
+    Gamma = []
+    Gamma.append(U)
     for i in lap_list[1:]:
         Ui = hf.utils.sorted_u(i)
         Uri = Ui[:, 1 : r + 1].copy()
 
-        Ut = U.transpose()
-
-        S = Ut.dot(Uri)
+        S = np.dot(U.T, Uri)
         P = U.dot(S)
         Q = Uri - P
-        print("\nUi is\n", Ui[1:, :9], "\n", Ui[1:, 1, :9])
         G = hf.utils.orthogonalize(Q)
-
+        Gamma.append(G)
         U = np.append(U, G, axis=1)
-        print("Made Orthonormal basis successfully...")
-    return U
+    print("Made Orthonormal basis successfully...")
+    print("Basis: ", U.shape, " Gamma shape: ", Gamma[1].shape)
+    return U, Gamma
 
-
-def make_H(orthonorm_basis, lr_list, alpha, r):
-    M = len(lr_list)
-    H = np.zeros((M * r, M * r))
+def make_H(Gamma, lr_list, alpha, r):
+    M = len(Gamma)
+    HmList=[]
+    H=np.zeros((M*r, M*r))
+    for m in range(M):
+        Lr=lr_list[m]
+        HmTemp = np.zeros((M*r, M*r))
+        for p in range(M):
+            for q in range(M):
+                Blockpq=(np.array(Gamma[p]).T).dot(Lr).dot(np.array(Gamma[q]))
+                Blockpq[np.where(Blockpq < 1e-10)] = 0
+                rs=(p)*r
+                rl=(p)*r+r
+                cs=(q)*r
+                cl=(q)*r+r
+                HmTemp[rs:rl,cs:cl]=Blockpq.copy()
+        HmList.append(HmTemp)
     for i in range(M):
-        Lr = lr_list[i]
-        gamma = orthonorm_basis[:, :].copy()
-        gamma[:, i + 1 :] = 0
-        gamma_T = np.transpose(gamma)
-        P = gamma_T.dot(Lr)
-        H = H + alpha[i] * P.dot(gamma)
-    print("Made H matrix successfully...")
+        H=H+alpha[i]* HmList[i]
     return H
+    
