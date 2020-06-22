@@ -7,11 +7,7 @@ def gr_accuracy(GR_TRUTH=None, labels=None, metadata=None):
         from sklearn.cluster import KMeans
         from sklearn.metrics import silhouette_score
 
-        labels = (
-            KMeans(n_clusters=metadata["n_cluster"], random_state=0)
-            .fit(metadata["data"])
-            .predict(metadata["data"])
-        )
+        labels = KMeans(n_clusters=metadata["n_cluster"], random_state=0).fit(metadata["data"]).predict(metadata["data"])
 
         labels = np.array(labels)
 
