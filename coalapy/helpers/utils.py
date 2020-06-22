@@ -96,32 +96,18 @@ def orthogonalize(x):
         v = x[:, j]
         if j > 1:
             for i in range(j - 1):
-                tq = q[:, i].T
-                r[i, j] = tq.dot(x[:, j])
+                # tq = q[:, i].T
+                r[i, j] = np.dot(q[:,i].T, x[:, j])
                 v = v - r[i, j] * q[:, i]
         r[j, j] = sum(v ** 2) ** 0.5
         q[:, j] = v / r[j, j]
-    # qrcomp=list(Q=q, R=r)
     return q
 
-
-# def orthogonalize(U, eps=1e-10):
-#     n = len(U[0])
-#     V = U.T
-#     for i in range(n):
-#         prev_basis = V[0:i]
-#         coeff_vec = np.dot(prev_basis, V[i].T)
-#         V[i] -= np.dot(coeff_vec, prev_basis).T
-#         if np.linalg.norm(V[i]) < eps:
-#             V[i][V[i] < eps] = 0.0
-#         else:
-#             V[i] /= np.linalg.norm(V[i])
-#     return V.T
-
-
-def get_orthonorm_basis(lap_list=None, rank=3):
+    
+def get_orthonorm_basis(lap_list=None, chi_list=None, rank=3):
     if lap_list is not None:
-        return Matrix.make_mat.make_orthonorm_basis(lap_list, rank)
+        lap = sort_lr(chi_list=chi_list, lr_list=lap_list)
+        return Matrix.make_mat.make_orthonorm_basis(lap, rank)
     else:
         print("Provide list of lra laplacian matrices")
 
@@ -195,3 +181,10 @@ def scale(df, center=True, scale=True):
         for i in range(ncol):
             df.iloc[i] /= np.sqrt(df.iloc[i].pow(2).sum().div(df.iloc[i].count() - 1))
     return df
+
+
+def get_alpha(chi_list):
+    chi_ls = chi_list.copy()
+    for i, chi in enumerate(chi_ls):
+        chi_ls[i] = chi / ((1.25) ** (i + 1))
+    return chi_ls / sum(chi_ls)
